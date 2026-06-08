@@ -1315,7 +1315,7 @@ export default function Calicolors() {
 }
 
 const S = {
-  root: { position: "relative", minHeight: "100vh", overflow: "hidden", background: "#0c0a08", color: "#ece6db", fontFamily: SANS },
+  root: { position: "relative", minHeight: "100vh", overflowX: "hidden", background: "#0c0a08", color: "#ece6db", fontFamily: SANS },
   canvas: { position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", zIndex: 0, overflow: "hidden" },
   scrim: { position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none", background: "radial-gradient(130% 110% at 50% 35%, #0c0a0800 0%, #0c0a0855 70%, #0c0a0888 100%)" },
   grain: { position: "fixed", inset: 0, zIndex: 2, pointerEvents: "none", opacity: 0.05, backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" },
