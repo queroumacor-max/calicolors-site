@@ -198,6 +198,65 @@ function LiquidCanvas({ themeColors, speed = 1, warp = 1, mouseAmt = 1 }) {
   return <div ref={ref} style={S.canvas} />;
 }
 
+// Rastro de tinta que segue o pincel: cada traço fica ~5s e some gradualmente,
+// do começo (mais antigo) para o final, como tinta secando.
+function PaintTrail({ color = "#c9a25e" }) {
+  const ref = useRef(null);
+  const pts = useRef([]);
+  const colorRef = useRef(color);
+  useEffect(() => { colorRef.current = color; }, [color]);
+  useEffect(() => {
+    const canvas = ref.current; if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let raf, W = 0, H = 0;
+    const resize = () => {
+      W = window.innerWidth; H = window.innerHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = W + "px"; canvas.style.height = H + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    const add = (x, y) => {
+      const p = pts.current, last = p[p.length - 1], t = performance.now();
+      if (last && Math.hypot(x - last.x, y - last.y) < 2.5) return; // amostra esparsa
+      p.push({ x, y, t });
+      if (p.length > 900) p.shift();
+    };
+    const onMove = (e) => add(e.clientX, e.clientY);
+    const onTouch = (e) => { const t = e.touches[0]; if (t) add(t.clientX, t.clientY); };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("touchmove", onTouch, { passive: true });
+    window.addEventListener("resize", resize);
+    const LIFE = 5000;
+    const draw = () => {
+      const now = performance.now(), p = pts.current;
+      while (p.length && now - p[0].t > LIFE) p.shift();
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = colorRef.current;
+      for (let i = 1; i < p.length; i++) {
+        const a = p[i - 1], b = p[i];
+        if (b.t - a.t > 140) continue; // pausa/salto: não conecta segmentos distantes
+        const k = Math.max(0, 1 - (now - b.t) / LIFE); // 1 = recente, 0 = sumindo
+        ctx.globalAlpha = k * 0.85;
+        ctx.lineWidth = 1.5 + k * 7;     // afina conforme seca
+        ctx.shadowColor = colorRef.current; ctx.shadowBlur = 7 * k;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      }
+      ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("touchmove", onTouch);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+  return <canvas ref={ref} style={{ position: "fixed", inset: 0, zIndex: 9998, pointerEvents: "none" }} />;
+}
+
 export default function Calicolors() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [theme, setTheme] = useState("ouro");
@@ -688,6 +747,7 @@ export default function Calicolors() {
       <LiquidCanvas themeColors={themeColors} speed={speed} warp={warp} mouseAmt={mouseAmt} />
       <div style={S.scrim} />
       <div style={S.grain} />
+      <PaintTrail color={themeColors[3]} />
 
       <nav style={S.nav}>
         <a href="#" style={S.logoWrap} aria-label="Calicolors"><img src={LOGO} alt="Calicolors" style={S.logoImg} /></a>
