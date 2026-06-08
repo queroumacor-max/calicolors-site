@@ -640,13 +640,19 @@ export default function Calicolors() {
   // Layout estilo SW: cada família vira um bloco de colunas (matiz no eixo X,
   // valor claro→escuro no eixo Y). Quantidade de linhas muda com o zoom.
   const ROWS = zoom ? 9 : 16;
+  // Grade estilo SW: LINHAS = níveis de luz alinhados (claro em cima → escuro
+  // embaixo); COLUNAS = escadinha de tom (mesma faixa de matiz, do claro ao escuro).
+  // Ordena tudo por luz, fatia em linhas de C colunas, ordena cada linha por matiz
+  // e transpõe — assim as colunas viram ladders coerentes e as linhas se alinham.
   const wallGroups = useMemo(() => WALL_FAMS.map((fam) => {
     const items = colors.filter((c) => c.fam === fam.key);
-    if (fam.key === "neutro" || fam.key === "offwhite") items.sort((a, b) => (b.l - a.l) || (a.h - b.h));
-    else items.sort((a, b) => (a.h - b.h) || (b.l - a.l));
-    const ncol = Math.max(1, Math.ceil(items.length / ROWS));
-    const columns = Array.from({ length: ncol }, (_, j) =>
-      items.slice(j * ROWS, (j + 1) * ROWS).sort((a, b) => (b.l - a.l)));
+    const C = Math.max(1, Math.round(items.length / ROWS)); // nº de colunas alvo
+    const byLight = [...items].sort((a, b) => (b.l - a.l) || (a.h - b.h)); // claro→escuro
+    const rows = [];
+    for (let i = 0; i < byLight.length; i += C) {
+      rows.push(byLight.slice(i, i + C).sort((a, b) => (a.h - b.h) || (b.l - a.l))); // linha por matiz
+    }
+    const columns = Array.from({ length: C }, (_, j) => rows.map((r) => r[j]).filter(Boolean));
     return { ...fam, columns, count: items.length };
   }), [colors, ROWS]);
 
