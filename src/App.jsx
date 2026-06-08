@@ -52,24 +52,33 @@ const rampFromColor = (c) => {
 
 const DESIGNER_COLLECTIONS = [{"id":"form","tag":"FORM + FUNCTION","sub":"Neutros Naturais","title":"Beleza Natural","desc":"Neutros orgânicos, puros e marcantes — tons de madeira, texturas e terrosos profundos para um cenário sofisticado e artístico.","colors":[{"n":"Oat Milk","c":"SW 9501","x":"#EBE6E0"},{"n":"Arrowroote","c":"SW 9502","x":"#E8E2DB"},{"n":"Cheviot","c":"SW 9503","x":"#E5E0D6"},{"n":"Cold Foam","c":"SW 9504","x":"#E2DDD2"},{"n":"Frost Bite","c":"SW 9505","x":"#DFDBCD"},{"n":"Warm Winter","c":"SW 9506","x":"#DCD2C8"},{"n":"Cream and Sugar","c":"SW 9507","x":"#D9CFC3"},{"n":"Natural Wool","c":"SW 9508","x":"#D5CDBF"},{"n":"Steamed Chai","c":"SW 9509","x":"#D2CBBA"},{"n":"Peace of Mind","c":"SW 9510","x":"#CFC9B5"},{"n":"Warm Oats","c":"SW 9511","x":"#CCBEB1"},{"n":"Threaded Loom","c":"SW 9512","x":"#C9BCAC"},{"n":"Sleepy Owlet","c":"SW 9513","x":"#C6BAA7"},{"n":"Zinc Luster","c":"SW 9514","x":"#C2B9A3"},{"n":"Tungsten","c":"SW 9515","x":"#BFB79E"},{"n":"Accolade","c":"SW 9516","x":"#BCAB9A"},{"n":"Outrigger","c":"SW 9517","x":"#B8A995"},{"n":"Featherstone","c":"SW 9518","x":"#B5A890"},{"n":"Country Tweed","c":"SW 9519","x":"#B2A78C"},{"n":"Nocturne","c":"SW 9520","x":"#AFA687"},{"n":"Simple Stone","c":"SW 9521","x":"#AB9783"},{"n":"Meander","c":"SW 9522","x":"#A8967F"},{"n":"Canal Street","c":"SW 9523","x":"#A4957A"},{"n":"Crooked River","c":"SW 9524","x":"#A19475"},{"n":"Hidden Trail","c":"SW 9525","x":"#9E9371"},{"n":"Woolen Mittens","c":"SW 9526","x":"#9B836C"},{"n":"Worn Khaki","c":"SW 9527","x":"#968369"},{"n":"Vintage","c":"SW 9528","x":"#928265"},{"n":"Twig Basket","c":"SW 9529","x":"#8D8062"},{"n":"Momentum","c":"SW 9530","x":"#897F5F"},{"n":"Stone Guardians","c":"SW 9531","x":"#84705C"},{"n":"Earthy Ochre","c":"SW 9532","x":"#7F6E58"},{"n":"Rattan Palm","c":"SW 9533","x":"#7B6D55"},{"n":"Shaker Peg","c":"SW 9534","x":"#756B53"},{"n":"River Reed","c":"SW 9535","x":"#706950"},{"n":"Lamb's Wool","c":"SW 9536","x":"#6C5C4D"},{"n":"Sugared Almond","c":"SW 9537","x":"#675A49"},{"n":"Tangled Twine","c":"SW 9538","x":"#635846"},{"n":"Timber Beam","c":"SW 9539","x":"#5E5643"},{"n":"Nettle","c":"SW 9540","x":"#595340"}]},{"id":"minimal","tag":"MINIMAL + MODERN","sub":"Neutros Frios","title":"Em Equilíbrio","desc":"Neutros frios equilibrados que criam contraste contemporâneo e fresco. Harmonia moderna, simplicidade e foco nos detalhes.","colors":[{"n":"White Snow","c":"SW 9541","x":"#E9EBEC"},{"n":"Natural White","c":"SW 9542","x":"#E4E6E8"},{"n":"Gypsum","c":"SW 9543","x":"#DFE1E4"},{"n":"Dashing","c":"SW 9544","x":"#DADDE0"},{"n":"Ghosted","c":"SW 9545","x":"#D5D7DB"},{"n":"Lunar Lite","c":"SW 9546","x":"#D0D5D7"},{"n":"Vessel","c":"SW 9547","x":"#CBD0D3"},{"n":"Sweater Weather","c":"SW 9548","x":"#C7CBCE"},{"n":"Touch of Grey","c":"SW 9549","x":"#C2C5CA"},{"n":"Mercurial","c":"SW 9550","x":"#BDC0C6"},{"n":"Skipping Rocks","c":"SW 9551","x":"#B8BEC1"},{"n":"Antimony","c":"SW 9552","x":"#B3B9BD"},{"n":"Allegory","c":"SW 9553","x":"#AEB4B9"},{"n":"Going Grey","c":"SW 9554","x":"#AAAEB4"},{"n":"Storm Warning","c":"SW 9555","x":"#A5A9B0"},{"n":"Intrepid Grey","c":"SW 9556","x":"#A1A7AB"},{"n":"Autonomous","c":"SW 9557","x":"#9CA2A7"},{"n":"Bedrock","c":"SW 9558","x":"#979DA3"},{"n":"Fortitude","c":"SW 9559","x":"#92979E"},{"n":"Castlegate","c":"SW 9560","x":"#8D929A"},{"n":"Scattered Showers","c":"SW 9561","x":"#899195"},{"n":"Before the Storm","c":"SW 9562","x":"#858B90"},{"n":"Night Out","c":"SW 9563","x":"#80868C"},{"n":"Guild Grey","c":"SW 9564","x":"#7B8088"},{"n":"Forged Steel","c":"SW 9565","x":"#777B83"},{"n":"Solstice","c":"SW 9566","x":"#727A7E"},{"n":"Warm Pewter","c":"SW 9567","x":"#6F7478"},{"n":"Soft Suede","c":"SW 9568","x":"#6B6F73"},{"n":"Restoration","c":"SW 9569","x":"#666A6F"},{"n":"Hibernate","c":"SW 9570","x":"#62656A"},{"n":"Smooth Stone","c":"SW 9571","x":"#5D6265"},{"n":"Alloy","c":"SW 9572","x":"#595D60"},{"n":"Timeless Taupe","c":"SW 9573","x":"#55585C"},{"n":"Hulett Ore","c":"SW 9574","x":"#505357"},{"n":"Cracked Pepper","c":"SW 9575","x":"#4C4E52"},{"n":"Whirlwind","c":"SW 9576","x":"#474B4D"},{"n":"Grey Heron","c":"SW 9577","x":"#434649"},{"n":"Viaduct","c":"SW 9578","x":"#3F4144"},{"n":"Metropolis","c":"SW 9579","x":"#3A3C3F"},{"n":"Ironclad","c":"SW 9580","x":"#36383A"}]},{"id":"warm","tag":"WARM + WELCOMING","sub":"Neutros Quentes","title":"Convite Casual","desc":"Neutros quentes que se sobrepõem de forma natural, criando espaços aconchegantes e convidativos. Elementos suaves e íntimos.","colors":[{"n":"Cotton","c":"SW 9581","x":"#EEE7E2"},{"n":"White Sand","c":"SW 9582","x":"#EBE4DD"},{"n":"Sanctuary","c":"SW 9583","x":"#E8E1D8"},{"n":"Mortar","c":"SW 9584","x":"#E5DED4"},{"n":"Sunbleached","c":"SW 9585","x":"#E3DCCF"},{"n":"White Sesame","c":"SW 9586","x":"#E0D3CA"},{"n":"Mushroom","c":"SW 9587","x":"#DDD0C5"},{"n":"High Sierra","c":"SW 9588","x":"#DACEC1"},{"n":"Limewash","c":"SW 9589","x":"#D7CCBC"},{"n":"Taupe of the Morning","c":"SW 9590","x":"#D4CAB7"},{"n":"Whisper","c":"SW 9591","x":"#D1BEB2"},{"n":"Illusion","c":"SW 9592","x":"#CEBDAD"},{"n":"Lauriston Stone","c":"SW 9593","x":"#CBBBA8"},{"n":"Settlement","c":"SW 9594","x":"#C7B9A4"},{"n":"Braintree","c":"SW 9595","x":"#C5B8A0"},{"n":"Pachyderm","c":"SW 9596","x":"#C2AA9B"},{"n":"Western Reserve","c":"SW 9597","x":"#BFA996"},{"n":"Symmetry","c":"SW 9598","x":"#BCA891"},{"n":"Studio Beige","c":"SW 9599","x":"#B9A78C"},{"n":"Quarry Stone","c":"SW 9600","x":"#B6A688"},{"n":"Solitary Slate","c":"SW 9601","x":"#B29684"},{"n":"Limestone","c":"SW 9602","x":"#AF957F"},{"n":"Tea Leaf","c":"SW 9603","x":"#AC957A"},{"n":"Armory","c":"SW 9604","x":"#A99476"},{"n":"Clove","c":"SW 9605","x":"#A69471"},{"n":"Slumber Sloth","c":"SW 9606","x":"#A3826C"},{"n":"Tanglewood","c":"SW 9607","x":"#9F8269"},{"n":"Habitat","c":"SW 9608","x":"#9C8264"},{"n":"Landmark","c":"SW 9609","x":"#978161"},{"n":"Stony Creek","c":"SW 9610","x":"#93815E"},{"n":"Dumpling","c":"SW 9611","x":"#8E6F5B"},{"n":"Minimalist","c":"SW 9612","x":"#896F58"},{"n":"Beachcomber","c":"SW 9613","x":"#846E55"},{"n":"Perfect Khaki","c":"SW 9614","x":"#7F6D53"},{"n":"Woodbridge","c":"SW 9615","x":"#7A6C50"},{"n":"Terrain","c":"SW 9616","x":"#755D4D"},{"n":"Teakwood","c":"SW 9617","x":"#715C4A"},{"n":"Carriage Stone","c":"SW 9618","x":"#6C5B47"},{"n":"Prelude","c":"SW 9619","x":"#675944"},{"n":"Prospect","c":"SW 9620","x":"#625741"}]},{"id":"rustic","tag":"RUSTIC + REFINED","sub":"Azuis & Verdes","title":"Frescor da Fazenda","desc":"Tons de azul e verde leves e serenos, perfeitos para ambientes de refúgio e descanso. Casa de campo com atualização moderna.","colors":[{"n":"Clean Slate","c":"SW 9621","x":"#E0EBE7"},{"n":"White Sail","c":"SW 9622","x":"#DCE7E4"},{"n":"Snowbelt","c":"SW 9623","x":"#D7E4E1"},{"n":"Winsome Grey","c":"SW 9624","x":"#D2E1DE"},{"n":"Grey Mist","c":"SW 9625","x":"#CEDEDC"},{"n":"Glacier Bay","c":"SW 9626","x":"#C9DBD4"},{"n":"Pacific Fog","c":"SW 9627","x":"#C4D8D2"},{"n":"Winter Walk","c":"SW 9628","x":"#C0D4CF"},{"n":"Constellation","c":"SW 9629","x":"#BBD1CD"},{"n":"Moorstone","c":"SW 9630","x":"#B7CECB"},{"n":"Mantra","c":"SW 9631","x":"#B2CBC1"},{"n":"Serenely","c":"SW 9632","x":"#ADC7BF"},{"n":"Silver Lake","c":"SW 9633","x":"#A9C4BD"},{"n":"Morning at Sea","c":"SW 9634","x":"#A5C0BB"},{"n":"Stargazer","c":"SW 9635","x":"#A0BDBA"},{"n":"Windchill","c":"SW 9636","x":"#9BBAAE"},{"n":"Mineral","c":"SW 9637","x":"#97B7AD"},{"n":"Breakwater","c":"SW 9638","x":"#92B3AB"},{"n":"Rain Cloud","c":"SW 9639","x":"#8EB0AA"},{"n":"Sea Mariner","c":"SW 9640","x":"#89ADA9"},{"n":"Dew Drop","c":"SW 9641","x":"#85A99B"},{"n":"Silver Tipped Sage","c":"SW 9642","x":"#81A59A"},{"n":"Eventide","c":"SW 9643","x":"#7CA299"},{"n":"Portsmouth","c":"SW 9644","x":"#789F98"},{"n":"Big Dipper","c":"SW 9645","x":"#739C97"},{"n":"Create","c":"SW 9646","x":"#6E9888"},{"n":"Soft Sage","c":"SW 9647","x":"#6B9487"},{"n":"Frosted Fern","c":"SW 9648","x":"#688F85"},{"n":"Willowleaf","c":"SW 9649","x":"#658B84"},{"n":"Succulent","c":"SW 9650","x":"#618682"},{"n":"Sea Spray","c":"SW 9651","x":"#5E8274"},{"n":"Hazel Gaze","c":"SW 9652","x":"#5B7D72"},{"n":"Piedmont","c":"SW 9653","x":"#577970"},{"n":"Forever Green","c":"SW 9654","x":"#55736E"},{"n":"Taiga","c":"SW 9655","x":"#526F6B"},{"n":"Mountain Pass","c":"SW 9656","x":"#4E6A5F"},{"n":"Pine Frost","c":"SW 9657","x":"#4B665D"},{"n":"Fresh Eucalyptus","c":"SW 9658","x":"#48615B"},{"n":"Marine","c":"SW 9659","x":"#445C58"},{"n":"Tarragon","c":"SW 9660","x":"#425755"}]},{"id":"classic","tag":"CLASSIC + COLLECTED","sub":"Tons Suaves & Cores Marcantes","title":"Com Muito Charme","desc":"Tons suaves e cores marcantes — inspiração e pano de fundo para a curadoria da sua coleção pessoal. Charme acumulado no tempo.","colors":[{"n":"Radiant Dawn","c":"SW 9661","x":"#E4D5CD"},{"n":"Fresh Zest","c":"SW 9662","x":"#DFC7B0"},{"n":"Honeypot","c":"SW 9663","x":"#DEC18F"},{"n":"Sun Salutation","c":"SW 9664","x":"#E1C76A"},{"n":"Sunny Side Up","c":"SW 9665","x":"#E8DC41"},{"n":"Barely Pear","c":"SW 9666","x":"#A2A85E"},{"n":"Carambola","c":"SW 9667","x":"#8CA242"},{"n":"Wild Lime","c":"SW 9668","x":"#6D952D"},{"n":"Glade Green","c":"SW 9669","x":"#D7F2C0"},{"n":"Olivetone","c":"SW 9670","x":"#B8F39C"},{"n":"Serendipity","c":"SW 9671","x":"#A8CCA1"},{"n":"Wavecrest","c":"SW 9672","x":"#81CB80"},{"n":"Valleyview","c":"SW 9673","x":"#5BCE6A"},{"n":"Leaflet","c":"SW 9674","x":"#31D560"},{"n":"Westhaven","c":"SW 9675","x":"#19CB66"},{"n":"Green Glimpse","c":"SW 9676","x":"#447E66"},{"n":"Rainsong","c":"SW 9677","x":"#C9E9E0"},{"n":"Lakeside","c":"SW 9678","x":"#AAE6DF"},{"n":"Silent Ripple","c":"SW 9679","x":"#87E3E6"},{"n":"Holly Glen","c":"SW 9680","x":"#5FD2EB"},{"n":"Kingston","c":"SW 9681","x":"#749FB4"},{"n":"Night Watch","c":"SW 9682","x":"#4F85B7"},{"n":"After the Storm","c":"SW 9683","x":"#3462B0"},{"n":"Azure Tide","c":"SW 9684","x":"#213DA1"},{"n":"Juniper","c":"SW 9685","x":"#BBBFF7"},{"n":"Pale Pink","c":"SW 9686","x":"#BAB7D8"},{"n":"Cotton Candy","c":"SW 9687","x":"#A698D5"},{"n":"Lotus Petal","c":"SW 9688","x":"#9A75D6"},{"n":"Corallite","c":"SW 9689","x":"#994EDB"},{"n":"Rose Pink","c":"SW 9690","x":"#A723E4"},{"n":"Crystalline","c":"SW 9691","x":"#895094"},{"n":"Opalescent","c":"SW 9692","x":"#88388A"},{"n":"Blue Iris","c":"SW 9693","x":"#EDC4E8"},{"n":"Modern Lavender","c":"SW 9694","x":"#ECA3D7"},{"n":"Ripe Berry","c":"SW 9695","x":"#EF7EBE"},{"n":"Stone Fruit","c":"SW 9696","x":"#C08BA1"},{"n":"Wild Poppy","c":"SW 9697","x":"#C1677F"},{"n":"Full Bloom","c":"SW 9698","x":"#C64050"},{"n":"Beetroot","c":"SW 9699","x":"#BD2C27"},{"n":"Mountain Fig","c":"SW 9700","x":"#AC3115"}]}];
 
-// ── Famílias de matiz (estilo ColorSnap) ──
-const FAMILIES = [
-  { key: "todas",    label: "Todas" },
-  { key: "vermelho", label: "Vermelhos", test: (c) => c.s > 12 && (c.h < 16 || c.h >= 345) },
-  { key: "laranja",  label: "Laranjas",  test: (c) => c.s > 12 && c.h >= 16 && c.h < 40 },
-  { key: "amarelo",  label: "Amarelos",  test: (c) => c.s > 12 && c.h >= 40 && c.h < 70 },
-  { key: "verde",    label: "Verdes",    test: (c) => c.s > 10 && c.h >= 70 && c.h < 160 },
-  { key: "ciano",    label: "Cianos",    test: (c) => c.s > 10 && c.h >= 160 && c.h < 200 },
-  { key: "azul",     label: "Azuis",     test: (c) => c.s > 10 && c.h >= 200 && c.h < 255 },
-  { key: "roxo",     label: "Roxos",     test: (c) => c.s > 8  && c.h >= 255 && c.h < 290 },
-  { key: "rosa",     label: "Rosas",     test: (c) => c.s > 10 && c.h >= 290 && c.h < 345 },
-  { key: "neutro",   label: "Neutros",   test: (c) => c.s <= 12 && c.l > 18 && c.l < 82 },
-  { key: "branco",   label: "Brancos",   test: (c) => c.l >= 82 },
-  { key: "escuro",   label: "Escuros",   test: (c) => c.l <= 18 },
+// ── Famílias de matiz (estilo Sherwin-Williams ColorSnap) ──
+// Na SW, cada família de matiz é uma coluna; os tons escuros ficam no
+// rodapé da própria família (não em uma família "escuros" à parte). Só
+// os de baixa saturação viram cinzas/neutros e off-whites, nas colunas finais.
+const WALL_FAMS = [
+  { key: "vermelho", label: "Vermelhos" },
+  { key: "laranja",  label: "Laranjas" },
+  { key: "amarelo",  label: "Amarelos" },
+  { key: "verde",    label: "Verdes" },
+  { key: "ciano",    label: "Cianos" },
+  { key: "azul",     label: "Azuis" },
+  { key: "roxo",     label: "Roxos" },
+  { key: "rosa",     label: "Rosas" },
+  { key: "neutro",   label: "Neutros" },
+  { key: "offwhite", label: "Off-Whites" },
 ];
+const FAMILIES = [{ key: "todas", label: "Todas" }, ...WALL_FAMS];
 const famOf = (c) => {
-  for (let i = 1; i < FAMILIES.length; i++) if (FAMILIES[i].test(c)) return FAMILIES[i].key;
-  return "neutro";
+  if (c.s <= 10) return c.l >= 80 ? "offwhite" : "neutro";
+  if (c.h < 16 || c.h >= 345) return "vermelho";
+  if (c.h < 40) return "laranja";
+  if (c.h < 70) return "amarelo";
+  if (c.h < 160) return "verde";
+  if (c.h < 200) return "ciano";
+  if (c.h < 255) return "azul";
+  if (c.h < 290) return "roxo";
+  return "rosa";
 };
 
 // ── Helpers das ferramentas de cor ──
@@ -104,7 +113,7 @@ const harmonyTargets = (base) => {
   };
 };
 
-function LiquidCanvas({ themeColors }) {
+function LiquidCanvas({ themeColors, speed = 1, warp = 1, mouseAmt = 1 }) {
   const ref = useRef(null);
   const uniformsRef = useRef(null);
   const targetsRef = useRef(null);
@@ -125,6 +134,7 @@ function LiquidCanvas({ themeColors }) {
     const cols = themeColors.map(hexToVec);
     const uniforms = {
       u_time: { value: 0 }, u_res: { value: new THREE.Vector2(W, H) },
+      u_speed: { value: speed }, u_warp: { value: warp }, u_mouseAmt: { value: mouseAmt },
       u_mouse: { value: new THREE.Vector2(0.5, 0.5) }, u_mouseEase: { value: new THREE.Vector2(0.5, 0.5) },
       u_c0: { value: cols[0].clone() }, u_c1: { value: cols[1].clone() }, u_c2: { value: cols[2].clone() },
       u_c3: { value: cols[3].clone() }, u_c4: { value: cols[4].clone() },
@@ -137,7 +147,7 @@ function LiquidCanvas({ themeColors }) {
       vertexShader: "void main(){ gl_Position = vec4(position,1.0); }",
       fragmentShader: `
         precision highp float;
-        uniform float u_time; uniform vec2 u_res, u_mouseEase;
+        uniform float u_time, u_speed, u_warp, u_mouseAmt; uniform vec2 u_res, u_mouseEase;
         uniform vec3 u_c0,u_c1,u_c2,u_c3,u_c4;
         vec3 hash3(vec2 p){ vec3 q=vec3(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)),dot(p,vec2(419.2,371.9))); return fract(sin(q)*43758.5453); }
         float noise(vec2 p){ vec2 i=floor(p),f=fract(p); vec2 u=f*f*(3.0-2.0*f);
@@ -146,10 +156,10 @@ function LiquidCanvas({ themeColors }) {
         float fbm(vec2 p){ float v=0.0,amp=0.5; for(int i=0;i<6;i++){v+=amp*noise(p);p*=2.02;amp*=0.5;} return v; }
         void main(){
           vec2 uv=gl_FragCoord.xy/u_res.xy; vec2 p=uv; p.x*=u_res.x/u_res.y;
-          float t=u_time*0.06; vec2 m=(u_mouseEase-0.5)*0.8;
+          float t=u_time*0.06*u_speed; vec2 m=(u_mouseEase-0.5)*0.8*u_mouseAmt;
           vec2 q=vec2(fbm(p+t+m),fbm(p+vec2(5.2,1.3)-t));
-          vec2 r=vec2(fbm(p+4.0*q+vec2(1.7,9.2)+t*0.7),fbm(p+4.0*q+vec2(8.3,2.8)-t*0.5));
-          float f=fbm(p+4.0*r+m);
+          vec2 r=vec2(fbm(p+4.0*u_warp*q+vec2(1.7,9.2)+t*0.7),fbm(p+4.0*u_warp*q+vec2(8.3,2.8)-t*0.5));
+          float f=fbm(p+4.0*u_warp*r+m);
           vec3 col=mix(u_c0,u_c1,smoothstep(0.0,0.4,f));
           col=mix(col,u_c2,smoothstep(0.35,0.6,f));
           col=mix(col,u_c3,smoothstep(0.55,0.78,f));
@@ -184,6 +194,7 @@ function LiquidCanvas({ themeColors }) {
   }, []);
 
   useEffect(() => { if (!targetsRef.current) return; const cols = themeColors.map(hexToVec); targetsRef.current.forEach((t, i) => t.copy(cols[i])); }, [themeColors]);
+  useEffect(() => { const u = uniformsRef.current; if (!u) return; u.u_speed.value = speed; u.u_warp.value = warp; u.u_mouseAmt.value = mouseAmt; }, [speed, warp, mouseAmt]);
   return <div ref={ref} style={S.canvas} />;
 }
 
@@ -193,9 +204,14 @@ export default function Calicolors() {
   const [customRamp, setCustomRamp] = useState(null);
   const [panelOpen, setPanelOpen] = useState(false);
   const [auto, setAuto] = useState(false);
+  const [speed, setSpeed] = useState(1);      // velocidade da animação
+  const [warp, setWarp] = useState(1);        // intensidade da distorção
+  const [mouseAmt, setMouseAmt] = useState(1); // influência do mouse
+  const [autoMs, setAutoMs] = useState(5000); // cadência da troca automática
   const [query, setQuery] = useState("");
   const [famFilter, setFamFilter] = useState("todas");
   const [zoom, setZoom] = useState(false);
+  const [hover, setHover] = useState(null); // tooltip ao passar o mouse
   const [detail, setDetail] = useState(null);
   const [palette, setPalette] = useState([]);
   const [activeCol, setActiveCol] = useState(0); // coleção designer selecionada
@@ -251,7 +267,7 @@ export default function Calicolors() {
     return list;
   }, []);
 
-  useEffect(() => { if (!auto) return; setCustomRamp(null); const keys = Object.keys(THEMES); const idv = setInterval(() => setTheme((c) => keys[(keys.indexOf(c) + 1) % keys.length]), 5000); return () => clearInterval(idv); }, [auto]);
+  useEffect(() => { if (!auto) return; setCustomRamp(null); const keys = Object.keys(THEMES); const idv = setInterval(() => setTheme((c) => keys[(keys.indexOf(c) + 1) % keys.length]), autoMs); return () => clearInterval(idv); }, [auto, autoMs]);
   useEffect(() => { const onMove = (e) => setTilt({ x: (e.clientY / window.innerHeight - 0.5) * -6, y: (e.clientX / window.innerWidth - 0.5) * 6 }); window.addEventListener("mousemove", onMove); return () => window.removeEventListener("mousemove", onMove); }, []);
 
   const themeColors = customRamp || THEMES[theme].colors;
@@ -621,11 +637,43 @@ export default function Calicolors() {
 
 
   const q = query.trim().toLowerCase();
-  const visible = useMemo(() => colors.filter((c) => {
-    const okFam = famFilter === "todas" || c.fam === famFilter;
-    const okQ = !q || c.n.toLowerCase().includes(q) || c.c.toLowerCase().includes(q);
-    return okFam && okQ;
-  }), [colors, famFilter, q]);
+  // Layout estilo SW: cada família vira um bloco de colunas (matiz no eixo X,
+  // valor claro→escuro no eixo Y). Quantidade de linhas muda com o zoom.
+  const ROWS = zoom ? 9 : 16;
+  const wallGroups = useMemo(() => WALL_FAMS.map((fam) => {
+    const items = colors.filter((c) => c.fam === fam.key);
+    if (fam.key === "neutro" || fam.key === "offwhite") items.sort((a, b) => (b.l - a.l) || (a.h - b.h));
+    else items.sort((a, b) => (a.h - b.h) || (b.l - a.l));
+    const ncol = Math.max(1, Math.ceil(items.length / ROWS));
+    const columns = Array.from({ length: ncol }, (_, j) =>
+      items.slice(j * ROWS, (j + 1) * ROWS).sort((a, b) => (b.l - a.l)));
+    return { ...fam, columns, count: items.length };
+  }), [colors, ROWS]);
+
+  const searchResults = useMemo(() => (q
+    ? colors.filter((c) => c.n.toLowerCase().includes(q) || c.c.toLowerCase().includes(q))
+    : null), [colors, q]);
+
+  const groupsToShow = famFilter === "todas" ? wallGroups : wallGroups.filter((g) => g.key === famFilter);
+  const shownCount = q ? (searchResults?.length || 0)
+    : (famFilter === "todas" ? colors.length : (wallGroups.find((g) => g.key === famFilter)?.count || 0));
+  const CS = zoom ? 38 : 22; // tamanho do chip
+
+  // renderiza um chip de cor (hover = tooltip SW, clique = seleciona/pinta fundo, duplo = entra na paleta)
+  const renderChip = (c, size) => {
+    const sel = detail && detail.c === c.c;
+    return (
+      <button key={c.c} onClick={() => pick(c)} onDoubleClick={() => addToPalette(c)}
+        onMouseEnter={(e) => setHover({ c, x: e.clientX, y: e.clientY })}
+        onMouseMove={(e) => setHover({ c, x: e.clientX, y: e.clientY })}
+        onMouseLeave={() => setHover((h) => (h && h.c.c === c.c ? null : h))}
+        title={`${c.c} · ${c.n}`} className="cell"
+        style={{ ...S.cell, width: size, height: size, background: c.x,
+          outline: sel ? "2px solid #fff" : "none",
+          transform: sel ? "scale(1.35)" : "none",
+          zIndex: sel ? 5 : 1, boxShadow: sel ? "0 6px 22px #000a" : "none" }} />
+    );
+  };
 
   const cats = [
     { n: "01", t: "Sherwin-Williams", d: "Cores e linhas premium — sistema tintométrico." },
@@ -637,7 +685,7 @@ export default function Calicolors() {
   return (
     <div style={S.root}>
       <style>{CSS}</style>
-      <LiquidCanvas themeColors={themeColors} />
+      <LiquidCanvas themeColors={themeColors} speed={speed} warp={warp} mouseAmt={mouseAmt} />
       <div style={S.scrim} />
       <div style={S.grain} />
 
@@ -704,15 +752,34 @@ export default function Calicolors() {
           <div style={S.chips}>
             {FAMILIES.map((f)=>(<button key={f.key} onClick={()=>setFamFilter(f.key)} style={{...S.chip,...(famFilter===f.key?S.chipActive:{})}} className="chip">{f.label}</button>))}
           </div>
-          <p style={S.count}>{String(visible.length)} cores</p>
+          <p style={S.count}>{String(shownCount)} cores · clique para pintar o fundo · duplo-clique adiciona à paleta</p>
           <div style={S.gridScroll}>
-            <div style={{...S.grid, gridTemplateColumns:`repeat(auto-fill, ${zoom?44:24}px)`}}>
-              {visible.map((c)=>(
-                <button key={c.c} onClick={()=>pick(c)} title={`${c.n} · ${c.c}`} className="cell"
-                  style={{...S.cell, width:zoom?44:24, height:zoom?44:24, background:c.x, outline:detail&&detail.c===c.c?`3px solid #fff`:"none", zIndex:detail&&detail.c===c.c?2:1}} />
-              ))}
-            </div>
+            {q ? (
+              <div style={{...S.searchGrid, gridTemplateColumns:`repeat(auto-fill, ${CS}px)`}}>
+                {searchResults.map((c)=>renderChip(c, CS))}
+                {searchResults.length===0 && <p style={S.noRes}>Nenhuma cor encontrada para “{query}”.</p>}
+              </div>
+            ) : (
+              <div style={S.wallBlocks}>
+                {groupsToShow.map((g)=>(
+                  <div key={g.key} style={S.famBlock}>
+                    <div style={S.famCols}>
+                      {g.columns.map((col,ci)=>(
+                        <div key={ci} style={S.famCol}>{col.map((c)=>renderChip(c, CS))}</div>
+                      ))}
+                    </div>
+                    <span style={S.famName}>{g.label}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
+          {hover && (
+            <div style={{...S.tip, left: hover.x, top: hover.y-16}}>
+              <span style={{...S.tipSw, background: hover.c.x}} />
+              <span><b>{hover.c.c}</b> · {hover.c.n}</span>
+            </div>
+          )}
           {detail && (
             <div style={{...S.detailCard, background:detail.x, color: detail.l>55?"#1a1a1a":"#fff"}}>
               <div><div style={S.detailCode}>{detail.c}</div><div style={S.detailName}>{detail.n}</div><div style={S.detailHex}>{detail.x}</div></div>
@@ -1305,6 +1372,14 @@ export default function Calicolors() {
         <h3 style={S.panelTitle}>COR DO EFEITO</h3>
         <p style={S.panelSub}>paleta do metal líquido</p>
         <button onClick={()=>setAuto((a)=>!a)} style={{...S.autoBtn,...(auto?S.autoBtnOn:{})}} className="theme-btn"><span style={{...S.autoDot, background: auto?"#7CFC9A":"#ffffff44"}} />{auto?"Troca automática: LIGADA":"Ativar troca automática"}</button>
+        <div style={S.ctrlGroup}>
+          <span style={S.ctrlHead}>Animação</span>
+          <label style={S.ctrlRow}><span style={S.ctrlLabel}>Velocidade <b>{speed.toFixed(1)}×</b></span><input type="range" min="0" max="3" step="0.1" value={speed} onChange={(e)=>setSpeed(+e.target.value)} style={S.range} /></label>
+          <label style={S.ctrlRow}><span style={S.ctrlLabel}>Distorção <b>{warp.toFixed(1)}×</b></span><input type="range" min="0.2" max="2.5" step="0.1" value={warp} onChange={(e)=>setWarp(+e.target.value)} style={S.range} /></label>
+          <label style={S.ctrlRow}><span style={S.ctrlLabel}>Mouse <b>{mouseAmt.toFixed(1)}×</b></span><input type="range" min="0" max="2" step="0.1" value={mouseAmt} onChange={(e)=>setMouseAmt(+e.target.value)} style={S.range} /></label>
+          {auto && (<label style={S.ctrlRow}><span style={S.ctrlLabel}>Troca a cada <b>{(autoMs/1000).toFixed(0)}s</b></span><input type="range" min="2" max="15" step="1" value={autoMs/1000} onChange={(e)=>setAutoMs(+e.target.value*1000)} style={S.range} /></label>)}
+          <button onClick={()=>{setSpeed(1);setWarp(1);setMouseAmt(1);setAutoMs(5000);}} style={S.ctrlReset} className="theme-btn">Restaurar padrão</button>
+        </div>
         <div style={S.themeGrid}>
           {Object.entries(THEMES).map(([key,th])=>(<button key={key} onClick={()=>{setAuto(false);setCustomRamp(null);setTheme(key);}} style={{...S.themeBtn,...(theme===key&&!customRamp?S.themeBtnActive:{})}} className="theme-btn"><span style={S.themeSwatch}>{th.colors.slice(1).map((c,i)=>(<span key={i} style={{background:c,flex:1}} />))}</span><span style={S.themeLabel}>{th.label}</span></button>))}
         </div>
@@ -1322,13 +1397,13 @@ const S = {
   nav: { position: "fixed", top: 0, left: 0, right: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "26px 5vw", backdropFilter: "blur(6px)" },
   logoWrap: { display: "flex", alignItems: "center", textDecoration: "none", lineHeight: 0 },
   logoImg: { height: 38, width: "auto", display: "block", filter: "drop-shadow(0 2px 10px #00000088)" },
-  heroLogo: { height: "clamp(70px,12vw,128px)", width: "auto", display: "block", marginBottom: 30, filter: "drop-shadow(0 6px 30px #00000099)" },
+  heroLogo: { width: "clamp(220px,42vw,520px)", maxWidth: "90vw", height: "auto", display: "block", marginBottom: 30, filter: "drop-shadow(0 6px 30px #00000099)" },
   navLinks: { display: "flex", gap: 30 },
   navLink: { color: "#ece6db", textDecoration: "none", fontSize: 12, letterSpacing: 2, textTransform: "uppercase" },
   license: { fontSize: 11, color: GOLD, opacity: 0.85, letterSpacing: 2, textDecoration: "none" },
   hero: { position: "relative", zIndex: 5, minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 5vw" },
   heroInner: { transformStyle: "preserve-3d", transition: "transform .2s ease-out", willChange: "transform" },
-  kicker: { fontSize: 12, letterSpacing: 6, color: GOLD, marginBottom: 28 },
+  kicker: { fontSize: 12, letterSpacing: 5, color: GOLD, marginBottom: 28, maxWidth: "100%", overflowWrap: "break-word", lineHeight: 1.6 },
   headline: { fontFamily: DISPLAY, margin: 0, lineHeight: 0.92, fontWeight: 500 },
   line: { display: "block", fontSize: "clamp(40px, 9vw, 140px)", color: "#fff", textShadow: "0 2px 40px #0c0a08aa" },
   lineItalic: { fontStyle: "italic", fontWeight: 400, color: "#e3dac8" },
@@ -1486,8 +1561,17 @@ const S = {
   chip: { padding: "6px 13px", borderRadius: 20, border: "1px solid #ffffff22", background: "transparent", color: "#cfc6b6", cursor: "pointer", fontSize: 11.5, letterSpacing: 0.5, transition: "all .2s", fontFamily: SANS },
   chipActive: { background: GOLD, color: "#0c0a08", borderColor: GOLD, fontWeight: 700 },
   count: { color: "#8f877a", fontSize: 11, letterSpacing: 1, margin: "0 0 14px" },
-  gridScroll: { maxHeight: 420, overflowY: "auto", overflowX: "hidden", paddingRight: 4 },
+  gridScroll: { maxHeight: 480, overflow: "auto", paddingBottom: 6 },
   grid: { display: "grid", gap: 3, justifyContent: "center" },
+  wallBlocks: { display: "flex", gap: 16, alignItems: "flex-start", minWidth: "min-content", padding: "2px 2px 4px" },
+  famBlock: { display: "flex", flexDirection: "column", gap: 6, alignItems: "center" },
+  famCols: { display: "flex", gap: 3, alignItems: "flex-start" },
+  famCol: { display: "flex", flexDirection: "column", gap: 3 },
+  famName: { fontSize: 10, letterSpacing: 1.5, textTransform: "uppercase", color: "#ffffff66", whiteSpace: "nowrap" },
+  searchGrid: { display: "grid", gap: 3, justifyContent: "start" },
+  noRes: { gridColumn: "1 / -1", color: "#8f877a", fontSize: 13, padding: "10px 2px" },
+  tip: { position: "fixed", transform: "translate(-50%,-100%)", background: "#fff", color: "#1a1a1a", padding: "6px 10px", borderRadius: 8, fontSize: 12, pointerEvents: "none", zIndex: 60, whiteSpace: "nowrap", boxShadow: "0 8px 24px #0008", display: "flex", alignItems: "center", gap: 8 },
+  tipSw: { width: 14, height: 14, borderRadius: 3, border: "1px solid #00000022", display: "inline-block", flexShrink: 0 },
   cell: { border: "none", borderRadius: 3, cursor: "pointer", padding: 0, transition: "transform .12s" },
   detailCard: { marginTop: 18, borderRadius: 12, padding: "18px 20px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap", boxShadow: "0 14px 34px #00000066" },
   detailCode: { fontSize: 12, letterSpacing: 2, opacity: 0.8 },
@@ -1524,6 +1608,12 @@ const S = {
   autoBtn: { width: "100%", display: "flex", alignItems: "center", gap: 9, justifyContent: "center", padding: "11px 12px", marginBottom: 14, borderRadius: 10, border: "1px solid #ffffff22", background: "#ffffff08", color: "#ece6db", cursor: "pointer", fontSize: 12.5, fontWeight: 600, fontFamily: SANS, transition: "all .25s" },
   autoBtnOn: { borderColor: "#7CFC9A88", background: "#7CFC9A18", color: "#fff" },
   autoDot: { width: 9, height: 9, borderRadius: "50%", boxShadow: "0 0 8px currentColor" },
+  ctrlGroup: { display: "flex", flexDirection: "column", gap: 11, margin: "0 0 16px", padding: "13px 13px 14px", background: "#ffffff08", border: "1px solid #ffffff14", borderRadius: 12 },
+  ctrlHead: { fontSize: 10.5, letterSpacing: 2, textTransform: "uppercase", color: GOLD, fontWeight: 700 },
+  ctrlRow: { display: "flex", flexDirection: "column", gap: 6, cursor: "pointer" },
+  ctrlLabel: { fontSize: 11, letterSpacing: 0.5, color: "#cfc6b6", display: "flex", justifyContent: "space-between", alignItems: "baseline" },
+  range: { width: "100%", accentColor: GOLD, cursor: "pointer", height: 4 },
+  ctrlReset: { marginTop: 2, padding: "8px 10px", borderRadius: 8, border: "1px solid #ffffff1c", background: "transparent", color: "#ffffff99", cursor: "pointer", fontSize: 11, letterSpacing: 1, fontFamily: SANS, transition: "all .25s" },
   themeGrid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 },
   themeBtn: { padding: 6, borderRadius: 10, border: "1px solid #ffffff1c", background: "#ffffff08", cursor: "pointer", display: "flex", flexDirection: "column", gap: 6, transition: "all .25s" },
   themeBtnActive: { borderColor: GOLD, background: "#c9a25e1c" },
