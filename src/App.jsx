@@ -216,6 +216,7 @@ export default function Calicolors() {
   const [theme, setTheme] = useState("ouro");
   const [customRamp, setCustomRamp] = useState(null);
   const [panelOpen, setPanelOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // menu de navegação no mobile
   const [auto, setAuto] = useState(true);
   const [speed, setSpeed] = useState(1);      // velocidade da animação
   const [warp, setWarp] = useState(1);        // intensidade da distorção
@@ -711,11 +712,20 @@ export default function Calicolors() {
 
       <nav style={S.nav}>
         <a href="#" style={S.logoWrap} aria-label="Calicolors"><img src={LOGO} alt="Calicolors" style={S.logoImg} /></a>
-        <div style={S.navLinks}>{[["Cores","cores"],["Designer","designer"],["Ferramentas","ferramentas"],["Catálogos","catalogos"],["Pintores","pintores"],["Contato","contato"]].map(([label,id])=>(<a key={id} href={`#${id}`} style={S.navLink} className="navlink">{label}</a>))}</div>
-        <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.license} className="navlink">ORÇAMENTO ↗</a>
+        <div style={S.navLinks} className="nav-links">{[["Cores","cores"],["Designer","designer"],["Ferramentas","ferramentas"],["Catálogos","catalogos"],["Pintores","pintores"],["Contato","contato"]].map(([label,id])=>(<a key={id} href={`#${id}`} style={S.navLink} className="navlink">{label}</a>))}</div>
+        <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.license} className="navlink nav-orcamento">ORÇAMENTO ↗</a>
+        <button className="nav-burger" style={S.burger} onClick={()=>setMenuOpen((o)=>!o)} aria-label="Menu" aria-expanded={menuOpen}>{menuOpen ? "✕" : "☰"}</button>
       </nav>
+      {menuOpen && (
+        <div className="mobile-menu" style={S.mobileMenu}>
+          {[["Cores","cores"],["Designer","designer"],["Ferramentas","ferramentas"],["Catálogos","catalogos"],["Máquinas 3D","catalogo3d"],["Pintores","pintores"],["Contato","contato"]].map(([label,id])=>(
+            <a key={id} href={`#${id}`} style={S.mobileLink} className="navlink" onClick={()=>setMenuOpen(false)}>{label}</a>
+          ))}
+          <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.mobileCta} className="cta-prim" onClick={()=>setMenuOpen(false)}>ORÇAMENTO ↗</a>
+        </div>
+      )}
 
-      <section style={S.hero}>
+      <section style={S.hero} className="hero">
         <div style={{ ...S.heroInner, transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}>
           <div style={S.kicker}>MASTER RESELLER SHERWIN-WILLIAMS · GUARULHOS / SP</div>
           <h1 style={S.headline}>
@@ -1445,7 +1455,7 @@ export default function Calicolors() {
       <footer style={S.footer}>© {new Date().getFullYear()} Calicolors Tintas LTDA · CNPJ 47.677.346/0001-92 · Guarulhos, SP</footer>
 
       <button onClick={()=>setPanelOpen((o)=>!o)} style={S.fab} aria-label="Painel do efeito">🎨</button>
-      <div style={{...S.panel, transform: panelOpen?"translateX(0)":"translateX(140%)"}}>
+      <div className="fx-panel" style={{...S.panel, transform: panelOpen?"translateX(0)":"translateX(140%)"}}>
         <h3 style={S.panelTitle}>COR DO EFEITO</h3>
         <p style={S.panelSub}>paleta do metal líquido</p>
         <button onClick={()=>setAuto((a)=>!a)} style={{...S.autoBtn,...(auto?S.autoBtnOn:{})}} className="theme-btn"><span style={{...S.autoDot, background: auto?"#7CFC9A":"#ffffff44"}} />{auto?"Troca automática: LIGADA":"Ativar troca automática"}</button>
@@ -1478,6 +1488,10 @@ const S = {
   navLinks: { display: "flex", gap: 30 },
   navLink: { color: "#ece6db", textDecoration: "none", fontSize: 12, letterSpacing: 2, textTransform: "uppercase" },
   license: { fontSize: 11, color: GOLD, opacity: 0.85, letterSpacing: 2, textDecoration: "none" },
+  burger: { display: "none", alignItems: "center", justifyContent: "center", width: 44, height: 44, borderRadius: 12, border: "1px solid #ffffff33", background: "#0c0a0899", color: "#ece6db", fontSize: 20, cursor: "pointer", lineHeight: 1, backdropFilter: "blur(6px)" },
+  mobileMenu: { position: "fixed", top: 78, left: "4vw", right: "4vw", zIndex: 21, display: "flex", flexDirection: "column", gap: 4, padding: 12, background: "#0c0a08f2", border: "1px solid #ffffff1f", borderRadius: 16, backdropFilter: "blur(16px)", boxShadow: "0 24px 70px #000a" },
+  mobileLink: { color: "#ece6db", textDecoration: "none", fontSize: 14, letterSpacing: 2, textTransform: "uppercase", padding: "13px 14px", borderRadius: 10, borderBottom: "1px solid #ffffff10" },
+  mobileCta: { marginTop: 6, textAlign: "center", background: GOLD, color: "#0c0a08", padding: "14px", borderRadius: 10, textDecoration: "none", fontSize: 12, letterSpacing: 2, fontWeight: 700, textTransform: "uppercase" },
   hero: { position: "relative", zIndex: 5, minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 5vw" },
   heroInner: { transformStyle: "preserve-3d", transition: "transform .2s ease-out", willChange: "transform" },
   kicker: { fontSize: 12, letterSpacing: 4, color: GOLD, marginBottom: 22, maxWidth: "100%", overflowWrap: "break-word", lineHeight: 1.6 },
@@ -1747,5 +1761,23 @@ body { background: #0c0a08; }
 .cta-prim:hover { transform: translateY(-2px); box-shadow: 0 12px 30px #c9a25e55; }
 .cta-ghost { transition: background .3s, color .3s, border-color .3s; }
 .cta-ghost:hover { background: #ece6db; color: #0c0a08 !important; border-color: #ece6db; }
-@media (max-width: 780px) { nav > div:nth-child(2) { display: none; } #pintores { grid-template-columns: 1fr !important; } #ferramentas [style*="grid-template-columns: 2fr"] { grid-template-columns: 1fr !important; } }
+.nav-burger:hover { border-color: #c9a25e !important; }
+@media (min-width: 781px) { .mobile-menu { display: none !important; } }
+@media (max-width: 780px) {
+  .nav-links { display: none !important; }
+  .nav-orcamento { display: none !important; }
+  .nav-burger { display: flex !important; }
+  nav { padding: 16px 4vw !important; }
+  section:not(.hero) { padding-top: 76px !important; padding-bottom: 76px !important; }
+  #contato { padding-top: 96px !important; padding-bottom: 64px !important; }
+  .marquee { font-size: 19px !important; }
+  /* layouts 2-col -> empilha (mantém o grid de paletas do painel, gap:10, intacto) */
+  [style*="grid-template-columns: 2fr 1fr"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 1fr 1fr"][style*="gap: 22"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 1fr 1fr"][style*="gap: 56"] { grid-template-columns: 1fr !important; }
+  #pintores { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 480px) {
+  .fx-panel { width: calc(100vw - 28px) !important; right: 14px !important; bottom: 84px !important; }
+}
 `;
