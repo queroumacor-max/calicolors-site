@@ -228,7 +228,7 @@ function PaintTrail({ color = "#c9a25e" }) {
     window.addEventListener("mousemove", onMove);
     window.addEventListener("touchmove", onTouch, { passive: true });
     window.addEventListener("resize", resize);
-    const LIFE = 5000;
+    const LIFE = 3000;
     const draw = () => {
       const now = performance.now(), p = pts.current;
       while (p.length && now - p[0].t > LIFE) p.shift();
@@ -238,7 +238,7 @@ function PaintTrail({ color = "#c9a25e" }) {
         const a = p[i - 1], b = p[i];
         if (b.t - a.t > 140) continue; // pausa/salto: não conecta segmentos distantes
         const k = Math.max(0, 1 - (now - b.t) / LIFE); // 1 = recente, 0 = sumindo
-        const w = 1.5 + k * 7;          // afina conforme seca
+        const w = (1.5 + k * 7) * 0.9;  // afina conforme seca (10% mais fino)
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
         // halo escuro por baixo: garante visibilidade sobre áreas claras do fundo
         ctx.shadowBlur = 0; ctx.globalAlpha = k * 0.4;
@@ -752,7 +752,7 @@ export default function Calicolors() {
       <LiquidCanvas themeColors={themeColors} speed={speed} warp={warp} mouseAmt={mouseAmt} />
       <div style={S.scrim} />
       <div style={S.grain} />
-      <PaintTrail color={themeColors[3]} />
+      <PaintTrail color="#ffffff" />
 
       <nav style={S.nav}>
         <a href="#" style={S.logoWrap} aria-label="Calicolors"><img src={LOGO} alt="Calicolors" style={S.logoImg} /></a>
