@@ -221,7 +221,7 @@ export default function Calicolors() {
   const [speed, setSpeed] = useState(1);      // velocidade da animação
   const [warp, setWarp] = useState(1);        // intensidade da distorção
   const [mouseAmt, setMouseAmt] = useState(1); // influência do mouse
-  const [autoMs, setAutoMs] = useState(5000); // cadência da troca automática
+  const [autoMs, setAutoMs] = useState(2000); // cadência da troca automática
   const [query, setQuery] = useState("");
   const [famFilter, setFamFilter] = useState("todas");
   const [zoom, setZoom] = useState(false);
@@ -1465,7 +1465,7 @@ export default function Calicolors() {
           <label style={S.ctrlRow}><span style={S.ctrlLabel}>Distorção <b>{warp.toFixed(1)}×</b></span><input type="range" min="0.2" max="2.5" step="0.1" value={warp} onChange={(e)=>setWarp(+e.target.value)} style={S.range} /></label>
           <label style={S.ctrlRow}><span style={S.ctrlLabel}>Mouse <b>{mouseAmt.toFixed(1)}×</b></span><input type="range" min="0" max="2" step="0.1" value={mouseAmt} onChange={(e)=>setMouseAmt(+e.target.value)} style={S.range} /></label>
           {auto && (<label style={S.ctrlRow}><span style={S.ctrlLabel}>Troca a cada <b>{(autoMs/1000).toFixed(0)}s</b></span><input type="range" min="2" max="15" step="1" value={autoMs/1000} onChange={(e)=>setAutoMs(+e.target.value*1000)} style={S.range} /></label>)}
-          <button onClick={()=>{setSpeed(1);setWarp(1);setMouseAmt(1);setAutoMs(5000);}} style={S.ctrlReset} className="theme-btn">Restaurar padrão</button>
+          <button onClick={()=>{setSpeed(1);setWarp(1);setMouseAmt(1);setAutoMs(2000);}} style={S.ctrlReset} className="theme-btn">Restaurar padrão</button>
         </div>
         <div style={S.themeGrid}>
           {Object.entries(THEMES).map(([key,th])=>(<button key={key} onClick={()=>{setAuto(false);setCustomRamp(null);setTheme(key);}} style={{...S.themeBtn,...(theme===key&&!customRamp?S.themeBtnActive:{})}} className="theme-btn"><span style={S.themeSwatch}>{th.colors.slice(1).map((c,i)=>(<span key={i} style={{background:c,flex:1}} />))}</span><span style={S.themeLabel}>{th.label}</span></button>))}
