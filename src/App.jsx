@@ -216,7 +216,7 @@ export default function Calicolors() {
   const [theme, setTheme] = useState("ouro");
   const [customRamp, setCustomRamp] = useState(null);
   const [panelOpen, setPanelOpen] = useState(false);
-  const [auto, setAuto] = useState(false);
+  const [auto, setAuto] = useState(true);
   const [speed, setSpeed] = useState(1);      // velocidade da animação
   const [warp, setWarp] = useState(1);        // intensidade da distorção
   const [mouseAmt, setMouseAmt] = useState(1); // influência do mouse
