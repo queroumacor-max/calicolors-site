@@ -233,15 +233,20 @@ function PaintTrail({ color = "#c9a25e" }) {
       const now = performance.now(), p = pts.current;
       while (p.length && now - p[0].t > LIFE) p.shift();
       ctx.clearRect(0, 0, W, H);
-      ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = colorRef.current;
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
       for (let i = 1; i < p.length; i++) {
         const a = p[i - 1], b = p[i];
         if (b.t - a.t > 140) continue; // pausa/salto: não conecta segmentos distantes
         const k = Math.max(0, 1 - (now - b.t) / LIFE); // 1 = recente, 0 = sumindo
-        ctx.globalAlpha = k * 0.85;
-        ctx.lineWidth = 1.5 + k * 7;     // afina conforme seca
-        ctx.shadowColor = colorRef.current; ctx.shadowBlur = 7 * k;
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        const w = 1.5 + k * 7;          // afina conforme seca
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+        // halo escuro por baixo: garante visibilidade sobre áreas claras do fundo
+        ctx.shadowBlur = 0; ctx.globalAlpha = k * 0.4;
+        ctx.strokeStyle = "rgba(0,0,0,0.85)"; ctx.lineWidth = w + 4; ctx.stroke();
+        // núcleo claro/colorido por cima: visível sobre áreas escuras
+        ctx.globalAlpha = k * 0.95;
+        ctx.strokeStyle = colorRef.current; ctx.lineWidth = w;
+        ctx.shadowColor = colorRef.current; ctx.shadowBlur = 6 * k; ctx.stroke();
       }
       ctx.globalAlpha = 1; ctx.shadowBlur = 0;
       raf = requestAnimationFrame(draw);
