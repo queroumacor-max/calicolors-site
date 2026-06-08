@@ -1624,6 +1624,9 @@ const S = {
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;600&display=swap');
 * { box-sizing: border-box; }
+/* cursor pincel (SVG embutido) — ponta da tinta no hotspot inferior-esquerdo */
+* { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='34' height='34' viewBox='0 0 34 34'><path d='M30 4L18 16' stroke='%23c9a25e' stroke-width='4.5' stroke-linecap='round'/><path d='M19 13L21 15L15.5 20.5L13.5 18.5Z' fill='%23e6e6e6' stroke='%23999' stroke-width='.6'/><path d='M14.5 17.5L20 23L9 28L5 29L7 24Z' fill='%233aa0ff'/><path d='M5 29L7.5 25.5L9 28Z' fill='%231f7fd6'/></svg>") 5 29, auto !important; }
+input, textarea, select { cursor: text !important; }
 html, body, #root { margin: 0; padding: 0; width: 100%; min-height: 100%; }
 html { scroll-behavior: smooth; }
 section[id] { scroll-margin-top: 84px; }
