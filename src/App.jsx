@@ -23,7 +23,7 @@ const INSTAGRAM = "https://www.instagram.com/calicolorstintas";
 const SUPABASE_MODELS = "https://mmekvaqcebyufclmivaf.supabase.co/storage/v1/object/public/models/";
 const PLACEHOLDER_MODEL = "/models/placeholder.glb";
 const PRODUCTS_3D = [
-  { id: "atlas-compressor", brand: "Atlas Powertech", name: "Compressor de Ar", desc: "Compressor profissional para pintura e ferramentas pneumáticas.", file: "atlas-compressor.glb", model: PLACEHOLDER_MODEL },
+  { id: "atlas-compressor", brand: "Atlas Powertech", name: "Compressor de Ar", desc: "Compressor profissional para pintura e ferramentas pneumáticas.", file: "atlas-compressor.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Atlas_PowerTech_Gasol_0608184500_texture.glb" },
   { id: "atlas-pistola",    brand: "Atlas Powertech", name: "Pistola HVLP",      desc: "Pistola de pintura alta transferência, acabamento fino e uniforme.", file: "atlas-pistola.glb", model: PLACEHOLDER_MODEL },
   { id: "atlas-lixadeira",  brand: "Atlas Powertech", name: "Lixadeira Orbital", desc: "Lixadeira orbital para preparo de superfícies antes da pintura.", file: "atlas-lixadeira.glb", model: PLACEHOLDER_MODEL },
   { id: "atlas-airless",    brand: "Atlas Powertech", name: "Airless de Pintura", desc: "Equipamento airless para grandes áreas com alta produtividade.", file: "atlas-airless.glb", model: PLACEHOLDER_MODEL },
