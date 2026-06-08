@@ -697,7 +697,6 @@ export default function Calicolors() {
 
       <section style={S.hero}>
         <div style={{ ...S.heroInner, transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}>
-          <img src={LOGO} alt="Calicolors" style={S.heroLogo} className="rise" />
           <div style={S.kicker}>MASTER RESELLER SHERWIN-WILLIAMS · GUARULHOS / SP</div>
           <h1 style={S.headline}>
             <span className="rise" style={{ ...S.line, animationDelay: "0s" }}>Você imagina</span>
@@ -1396,7 +1395,7 @@ const S = {
   grain: { position: "fixed", inset: 0, zIndex: 2, pointerEvents: "none", opacity: 0.05, backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" },
   nav: { position: "fixed", top: 0, left: 0, right: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "26px 5vw", backdropFilter: "blur(6px)" },
   logoWrap: { display: "flex", alignItems: "center", textDecoration: "none", lineHeight: 0 },
-  logoImg: { height: 38, width: "auto", display: "block", filter: "drop-shadow(0 2px 10px #00000088)" },
+  logoImg: { height: 38, width: "auto", display: "block", filter: "brightness(0) invert(1) drop-shadow(0 2px 8px #00000088)" },
   heroLogo: { width: "clamp(170px,28vw,380px)", maxWidth: "78vw", height: "auto", display: "block", marginBottom: 26, filter: "drop-shadow(0 6px 30px #00000099)" },
   navLinks: { display: "flex", gap: 30 },
   navLink: { color: "#ece6db", textDecoration: "none", fontSize: 12, letterSpacing: 2, textTransform: "uppercase" },
