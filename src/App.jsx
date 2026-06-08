@@ -1624,8 +1624,8 @@ const S = {
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;600&display=swap');
 * { box-sizing: border-box; }
-/* cursor pincel (SVG embutido) — ponta da tinta no hotspot inferior-esquerdo */
-* { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='34' height='34' viewBox='0 0 34 34'><path d='M30 4L18 16' stroke='%23c9a25e' stroke-width='4.5' stroke-linecap='round'/><path d='M19 13L21 15L15.5 20.5L13.5 18.5Z' fill='%23e6e6e6' stroke='%23999' stroke-width='.6'/><path d='M14.5 17.5L20 23L9 28L5 29L7 24Z' fill='%233aa0ff'/><path d='M5 29L7.5 25.5L9 28Z' fill='%231f7fd6'/></svg>") 5 29, auto !important; }
+/* cursor: pincel de artista de ponta fina (SVG) — hotspot na pontinha da tinta */
+* { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g transform='rotate(45 16 16)'><line x1='16' y1='3' x2='16' y2='13.5' stroke='%23c9a25e' stroke-width='2.6' stroke-linecap='round'/><rect x='14' y='13.3' width='4' height='3.2' rx='.6' fill='%23dcdcdc' stroke='%23a8a8a8' stroke-width='.5'/><path d='M14.3 16.4 L17.7 16.4 L16 29 Z' fill='%233a2a17'/><path d='M15.4 24 L16.6 24 L16 29 Z' fill='%23c9a25e'/></g></svg>") 7 25, auto !important; }
 input, textarea, select { cursor: text !important; }
 html, body, #root { margin: 0; padding: 0; width: 100%; min-height: 100%; }
 html { scroll-behavior: smooth; }
