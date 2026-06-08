@@ -198,70 +198,6 @@ function LiquidCanvas({ themeColors, speed = 1, warp = 1, mouseAmt = 1 }) {
   return <div ref={ref} style={S.canvas} />;
 }
 
-// Rastro de tinta que segue o pincel: cada traço fica ~5s e some gradualmente,
-// do começo (mais antigo) para o final, como tinta secando.
-function PaintTrail({ color = "#c9a25e" }) {
-  const ref = useRef(null);
-  const pts = useRef([]);
-  const colorRef = useRef(color);
-  useEffect(() => { colorRef.current = color; }, [color]);
-  useEffect(() => {
-    const canvas = ref.current; if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    let raf, W = 0, H = 0;
-    const resize = () => {
-      W = window.innerWidth; H = window.innerHeight;
-      canvas.width = W * dpr; canvas.height = H * dpr;
-      canvas.style.width = W + "px"; canvas.style.height = H + "px";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-    resize();
-    const add = (x, y) => {
-      const p = pts.current, last = p[p.length - 1], t = performance.now();
-      if (last && Math.hypot(x - last.x, y - last.y) < 2.5) return; // amostra esparsa
-      p.push({ x, y, t });
-      if (p.length > 900) p.shift();
-    };
-    const onMove = (e) => add(e.clientX, e.clientY);
-    const onTouch = (e) => { const t = e.touches[0]; if (t) add(t.clientX, t.clientY); };
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("touchmove", onTouch, { passive: true });
-    window.addEventListener("resize", resize);
-    const LIFE = 3000;
-    const draw = () => {
-      const now = performance.now(), p = pts.current;
-      while (p.length && now - p[0].t > LIFE) p.shift();
-      ctx.clearRect(0, 0, W, H);
-      ctx.lineCap = "round"; ctx.lineJoin = "round";
-      for (let i = 1; i < p.length; i++) {
-        const a = p[i - 1], b = p[i];
-        if (b.t - a.t > 140) continue; // pausa/salto: não conecta segmentos distantes
-        const k = Math.max(0, 1 - (now - b.t) / LIFE); // 1 = recente, 0 = sumindo
-        const w = (1.5 + k * 7) * 0.9;  // afina conforme seca (10% mais fino)
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-        // halo escuro por baixo: garante visibilidade sobre áreas claras do fundo
-        ctx.shadowBlur = 0; ctx.globalAlpha = k * 0.4;
-        ctx.strokeStyle = "rgba(0,0,0,0.85)"; ctx.lineWidth = w + 4; ctx.stroke();
-        // núcleo claro/colorido por cima: visível sobre áreas escuras
-        ctx.globalAlpha = k * 0.95;
-        ctx.strokeStyle = colorRef.current; ctx.lineWidth = w;
-        ctx.shadowColor = colorRef.current; ctx.shadowBlur = 6 * k; ctx.stroke();
-      }
-      ctx.globalAlpha = 1; ctx.shadowBlur = 0;
-      raf = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("touchmove", onTouch);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-  return <canvas ref={ref} style={{ position: "fixed", inset: 0, zIndex: 9998, pointerEvents: "none" }} />;
-}
-
 export default function Calicolors() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [theme, setTheme] = useState("ouro");
@@ -752,7 +688,6 @@ export default function Calicolors() {
       <LiquidCanvas themeColors={themeColors} speed={speed} warp={warp} mouseAmt={mouseAmt} />
       <div style={S.scrim} />
       <div style={S.grain} />
-      <PaintTrail color="#ffffff" />
 
       <nav style={S.nav}>
         <a href="#" style={S.logoWrap} aria-label="Calicolors"><img src={LOGO} alt="Calicolors" style={S.logoImg} /></a>
@@ -1689,9 +1624,6 @@ const S = {
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;600&display=swap');
 * { box-sizing: border-box; }
-/* cursor: pincel de artista de ponta fina (SVG) — hotspot na pontinha da tinta */
-* { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g transform='rotate(45 16 16)'><line x1='16' y1='3' x2='16' y2='13.5' stroke='%23c9a25e' stroke-width='2.6' stroke-linecap='round'/><rect x='14' y='13.3' width='4' height='3.2' rx='.6' fill='%23dcdcdc' stroke='%23a8a8a8' stroke-width='.5'/><path d='M14.3 16.4 L17.7 16.4 L16 29 Z' fill='%233a2a17'/><path d='M15.4 24 L16.6 24 L16 29 Z' fill='%23c9a25e'/></g></svg>") 7 25, auto !important; }
-input, textarea, select { cursor: text !important; }
 html, body, #root { margin: 0; padding: 0; width: 100%; min-height: 100%; }
 html { scroll-behavior: smooth; }
 section[id] { scroll-margin-top: 84px; }
