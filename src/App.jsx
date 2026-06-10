@@ -353,11 +353,13 @@ function CarConfigurator() {
   const apply = (hex, t, el) => {
     const m = (el || ref.current)?.model;
     if (!m) return;
-    const EXCLUDE = /glass|vidro|tire|tyre|pneu|wheel|roda|rim|aro|window|janela|light|lamp|farol|lanterna|head|tail|mirror|retro|brake|freio|caliper|pinca|rotor|disc|disco|chrome|cromo|interior|seat|banco|carbon|carbono|rubber|borracha|badge|logo|emblem|grille|grelha|plastic|plastico|trim|placa|screen|display|led|emissive|engine|motor|exhaust|escap|shadow|ground|floor/i;
+    const EXCLUDE = /glass|vidro|window|janela|tire|tyre|pneu|wheel|roda|rim|aro|brake|freio|caliper|pinca|rotor|disc|disco|light|lamp|farol|lanterna|head|tail|mirror|retro|seat|banco|interior|led|screen|display|emissive|badge|emblem|logo|grille|grelha|exhaust|escap|chrome|cromo|shadow|ground|floor/i;
     const setOne = (mat) => { try { mat.pbrMetallicRoughness.setBaseColorFactor(hex); } catch (e) {} };
     if (t === "all") m.materials.forEach(setOne);
-    else if (t === "body") m.materials.forEach((mat) => { if (!EXCLUDE.test(mat.name || "")) setOne(mat); });
-    else { const i = Number(t); if (m.materials[i]) setOne(m.materials[i]); }
+    else if (t === "body") {
+      const body = m.materials.filter((mat) => !EXCLUDE.test(mat.name || ""));
+      (body.length ? body : m.materials).forEach(setOne);
+    } else { const i = Number(t); if (m.materials[i]) setOne(m.materials[i]); }
   };
 
   useEffect(() => {
