@@ -936,7 +936,7 @@ export default function Calicolors() {
         <div style={S.navLinks} className="nav-links">
           {PUBLICOS.map((p)=>(<button key={p.id} onClick={()=>{ setAudience(p.id); setTimeout(()=>document.getElementById(p.to)?.scrollIntoView({behavior:"smooth",block:"start"}),70); }} style={{...S.navLink, background:"none", border:"none", cursor:"pointer", fontFamily:"inherit", padding:0, ...(audience===p.id?{color:GOLD}:{})}} className="navlink">{p.label}</button>))}
           <span style={S.navDivider} />
-          {[["Cores","cores"],["Designer","designer"],["Studio","ferramentas"],["Catálogos","catalogos"],["Vídeos","videos"],["QueroUmaCor","pintores"],["Contato","contato"]].map(([label,id])=>(<a key={id} href={`#${id}`} style={S.navLink} className="navlink">{label}</a>))}
+          {[["Cores","cores"],["Studio","designer"],["Catálogos","catalogos"],["Vídeos","videos"],["QueroUmaCor","pintores"],["Contato","contato"]].map(([label,id])=>(<a key={id} href={`#${id}`} style={S.navLink} className="navlink">{label}</a>))}
         </div>
         <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.license} className="navlink nav-orcamento">ORÇAMENTO ↗</a>
         <button className="nav-burger" style={S.burger} onClick={()=>setMenuOpen((o)=>!o)} aria-label="Menu" aria-expanded={menuOpen}>{menuOpen ? "✕" : "☰"}</button>
@@ -946,7 +946,7 @@ export default function Calicolors() {
           {PUBLICOS.map((p)=>(
             <button key={p.id} onClick={()=>{ setAudience(p.id); setMenuOpen(false); setTimeout(()=>document.getElementById(p.to)?.scrollIntoView({behavior:"smooth",block:"start"}),70); }} style={{...S.mobileLink, background:"none", cursor:"pointer", fontFamily:"inherit", textAlign:"left", width:"100%", border:"none", borderBottom:"1px solid #ffffff10", ...(audience===p.id?{color:GOLD}:{})}} className="navlink">{p.label}</button>
           ))}
-          {[["Cores","cores"],["Designer","designer"],["Studio","ferramentas"],["Catálogos","catalogos"],["Máquinas 3D","catalogo3d"],["Vídeos","videos"],["QueroUmaCor","pintores"],["Contato","contato"]].map(([label,id])=>(
+          {[["Cores","cores"],["Studio","designer"],["Catálogos","catalogos"],["Máquinas 3D","catalogo3d"],["Vídeos","videos"],["QueroUmaCor","pintores"],["Contato","contato"]].map(([label,id])=>(
             <a key={id} href={`#${id}`} style={{...S.mobileLink, fontSize:12, color:"#9b948a"}} className="navlink" onClick={()=>setMenuOpen(false)}>{label}</a>
           ))}
           <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.mobileCta} className="cta-prim" onClick={()=>setMenuOpen(false)}>ORÇAMENTO ↗</a>
@@ -1061,8 +1061,8 @@ export default function Calicolors() {
 
       {/* ════ COLEÇÃO DESIGNER (dinâmica) ════ */}
       <section id="designer" style={S.section}>
-        <div style={S.dcTagline}>SHERWIN-WILLIAMS · DESIGNER COLOR COLLECTION</div>
-        <h2 style={S.h2}>Coleção Designer</h2>
+        <div style={S.dcTagline}>STUDIO · COLEÇÕES DESIGNER SHERWIN-WILLIAMS</div>
+        <h2 style={S.h2}>Studio de Cor</h2>
         <p style={S.note}>Cinco paletas curadas. Escolha uma — ela pinta o fundo do site e revela suas cores.</p>
 
         {/* seletor de coleções */}
