@@ -353,7 +353,7 @@ export default function Calicolors() {
   const [surf, setSurf] = useState({ parede: null, teto: null, rodape: null }); // cores por superfície
   const [surfTarget, setSurfTarget] = useState("parede"); // o que estou pintando agora
   const roomCanvasRef = useRef(null);
-  const [audience, setAudience] = useState("geral"); // 3 portas: geral | urbana | auto
+  const [audience, setAudience] = useState("cliente"); // 4 portas: cliente | pintor | grafiteiro | funileiro
   // calculadora de litros + orçamento
   const [calc, setCalc] = useState({ area: "", pe: "2.7", larg: "", comp: "", demaos: "2", modo: "area" });
   const [calcColor, setCalcColor] = useState(null);
@@ -854,22 +854,25 @@ export default function Calicolors() {
 
       <div style={S.marqueeWrap}><div className="marquee" style={S.marquee}>{Array(2).fill(0).map((_,i)=>(<span key={i}>Tintas — Vernizes — Texturas — Efeitos — Tintométrico — Sherwin-Williams — Cor —&nbsp;</span>))}</div></div>
 
-      {/* ════ SELETOR DE PÚBLICO (3 PORTAS) ════ */}
+      {/* ════ AS 4 PORTAS — CASA DOS 4 PÚBLICOS ════ */}
       <section id="publico" style={S.audienceWrap}>
-        <div style={S.audienceTag}>ESCOLHA SEU PERFIL</div>
-        <h2 style={S.h2}>Pra qual tipo de pintura você veio?</h2>
-        <p style={S.note}>Selecione e o site mostra as ferramentas certas pra você.</p>
-        <div style={S.audienceGrid}>
+        <div style={S.audienceTag}>A CASA DOS 4 PÚBLICOS</div>
+        <h2 style={S.h2}>Escolha sua porta</h2>
+        <p style={S.note}>Cada público tem seu mundo de cor. Entre no seu.</p>
+        <div style={S.portaGrid}>
           {[
-            { id: "geral", emoji: "🏠", t: "Residencial & Comercial", d: "Pintores, casas, apartamentos e empresas. Cores de parede, orçamento e simulação." },
-            { id: "urbana", emoji: "🎨", t: "Arte Urbana", d: "Muralistas, grafiteiros e artistas. Paletas, spray, mockup de mural e proposta." },
-            { id: "auto", emoji: "🚗", t: "Repintura Automotiva", d: "Funileiros e pintura de carro. Cálculo por peça, verniz e simulação na lataria." },
-          ].map((a) => (
-            <button key={a.id} onClick={() => { setAudience(a.id); }} style={{ ...S.audienceCard, ...(audience === a.id ? S.audienceCardActive : {}) }} className="aud-card">
-              <span style={S.audienceEmoji}>{a.emoji}</span>
-              <span style={S.audienceTitle}>{a.t}</span>
-              <span style={S.audienceDesc}>{a.d}</span>
-              <span style={{ ...S.audienceBadge, opacity: audience === a.id ? 1 : 0 }}>● Selecionado</span>
+            { id: "cliente",    to: "ferramentas", n: "01", emoji: "🏠", t: "Clientes",    promise: "Veja a cor na sua parede antes de comprar.", accent: "#c9a25e" },
+            { id: "pintor",     to: "catalogo3d",  n: "02", emoji: "🛠️", t: "Pintores",    promise: "Ferramentas e máquinas que pagam a obra.",   accent: "#4ea1d3" },
+            { id: "grafiteiro", to: "ferramentas", n: "03", emoji: "🎨", t: "Grafiteiros", promise: "Sua arte em escala — cor que grita na parede.", accent: "#e0479e" },
+            { id: "funileiro",  to: "ferramentas", n: "04", emoji: "🚗", t: "Funileiros",  promise: "A cor exata da lataria, na primeira demão.",  accent: "#d3543f" },
+          ].map((p) => (
+            <button key={p.id} onClick={() => { setAudience(p.id); setTimeout(() => document.getElementById(p.to)?.scrollIntoView({ behavior: "smooth", block: "start" }), 70); }} style={{ ...S.porta, ...(audience === p.id ? { borderColor: p.accent, boxShadow: `0 22px 60px #00000077, inset 0 0 0 1px ${p.accent}66` } : {}) }} className="porta">
+              <span style={{ ...S.portaGlow, background: `radial-gradient(120% 80% at 50% 0%, ${p.accent}3a, transparent 70%)` }} />
+              <span style={{ ...S.portaNum, color: p.accent }}>{p.n}</span>
+              <span style={S.portaEmoji}>{p.emoji}</span>
+              <span style={S.portaTitle}>{p.t}</span>
+              <span style={S.portaPromise}>{p.promise}</span>
+              <span style={{ ...S.portaEnter, color: p.accent }}>{audience === p.id ? "● Selecionado" : "Entrar →"}</span>
             </button>
           ))}
         </div>
@@ -993,7 +996,7 @@ export default function Calicolors() {
       </section>
 
       {/* ════ FERRAMENTAS DE COR ════ */}
-      {audience === "geral" && (
+      {audience === "cliente" && (
       <section id="ferramentas" style={S.section}>
         <div style={S.dcTagline}>STUDIO DE COR · CALICOLORS</div>
         <h2 style={S.h2}>Brinque com a cor</h2>
@@ -1340,7 +1343,7 @@ export default function Calicolors() {
       </section>
       )}
 
-      {audience === "urbana" && (
+      {audience === "grafiteiro" && (
       <section id="ferramentas" style={S.section}>
         <div style={S.dcTagline}>ARTE URBANA · MURALISTAS & GRAFITEIROS</div>
         <h2 style={S.h2}>Ferramentas pra sua arte</h2>
@@ -1416,7 +1419,7 @@ export default function Calicolors() {
       </section>
       )}
 
-      {audience === "auto" && (
+      {audience === "funileiro" && (
       <section id="ferramentas" style={S.section}>
         <div style={S.dcTagline}>REPINTURA AUTOMOTIVA · FUNILARIA & PINTURA</div>
         <h2 style={S.h2}>Ferramentas pra oficina</h2>
@@ -1671,6 +1674,15 @@ const S = {
   audienceTitle: { fontFamily: "'Bodoni Moda', serif", fontSize: 23, fontWeight: 500 },
   audienceDesc: { fontSize: 13.5, color: "#cfc6b6", lineHeight: 1.6 },
   audienceBadge: { fontSize: 11, letterSpacing: 1.5, color: "#c9a25e", textTransform: "uppercase", marginTop: 4, transition: "opacity .3s" },
+  // 4 portas (casa dos 4 públicos)
+  portaGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: 16, maxWidth: 1100, margin: "30px auto 0" },
+  porta: { position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 8, textAlign: "left", padding: "30px 26px", minHeight: 240, borderRadius: 20, border: "1px solid #ffffff1a", background: "#0c0a08bb", backdropFilter: "blur(10px)", cursor: "pointer", color: "#fff", transition: "transform .35s, border-color .35s, box-shadow .35s" },
+  portaGlow: { position: "absolute", inset: 0, pointerEvents: "none" },
+  portaNum: { position: "relative", fontFamily: DISPLAY, fontSize: 30, fontWeight: 500, lineHeight: 1 },
+  portaEmoji: { position: "relative", fontSize: 30, lineHeight: 1 },
+  portaTitle: { position: "relative", fontFamily: DISPLAY, fontSize: 26, color: "#fff" },
+  portaPromise: { position: "relative", flex: 1, fontSize: 14, lineHeight: 1.6, color: "#cfc6b6" },
+  portaEnter: { position: "relative", marginTop: 6, fontSize: 12.5, letterSpacing: 1, fontWeight: 700, textTransform: "uppercase" },
 
   dcTagline: { textAlign: "center", fontSize: 11, letterSpacing: 4, color: GOLD, marginBottom: 14, textTransform: "uppercase" },
   dcTabs: { display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", maxWidth: 1100, margin: "0 auto 32px" },
@@ -1936,6 +1948,7 @@ body { background: #0c0a08; }
 .flip-spin { animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .flipbook { margin: 0 auto; }
+.porta:hover { transform: translateY(-6px); border-color: #ffffff44 !important; }
 .nav-burger:hover { border-color: #c9a25e !important; }
 @media (min-width: 781px) { .mobile-menu { display: none !important; } }
 @media (max-width: 780px) {
