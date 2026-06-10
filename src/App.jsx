@@ -35,6 +35,7 @@ const PRODUCTS_3D = [
   { id: "atlas-misturador", brand: "Atlas Powertech", name: "Misturador Elétrico 1600W", desc: "Misturador elétrico 1600W / 127V para tintas, argamassas e texturas.", file: "atlas-misturador.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Red_electric_hand_mix_0610054007_texture.glb" },
   { id: "atlas-lixadeira-brushless", brand: "Atlas Powertech", name: "Lixadeira Brushless Ø225", desc: "Lixadeira elétrica brushless Ø225 · 400W / 127V para paredes e tetos (drywall).", file: "atlas-lixadeira-brushless.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Red_corded_string_tri_0610062635_texture.glb" },
   { id: "atlas-aspirador", brand: "Atlas Powertech", name: "Aspirador/Extrator de Pó 1190W", desc: "Aspirador e extrator de pó elétrico 1190W / 127V, uso pó e líquidos.", file: "atlas-aspirador.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Red_Wet_Dry_Vacuum_Cl_0610065113_texture.glb" },
+  { id: "atlas-airless-51l", brand: "Atlas Powertech", name: "Máq. Pintura Airless 5.1L 3000W", desc: "Máquina de pintura airless elétrica, tanque 5,1L · 3000W / 220V para alta produtividade.", file: "atlas-airless-51l.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Portable_Gas_Powered__0610071258_texture.glb" },
 ];
 
 // Site oficial do fabricante por marca (botão no modal 3D). Deixe "" para não exibir o botão.
