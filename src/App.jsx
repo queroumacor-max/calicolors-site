@@ -915,7 +915,7 @@ export default function Calicolors() {
 
       <section style={S.hero} className="hero">
         <div style={{ ...S.heroInner, transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}>
-          <div style={S.kicker}>A CASA DOS 4 PÚBLICOS</div>
+          <div style={S.kicker}>A CASA DE QUEM ENTENDE DE PINTURA</div>
           <h1 style={S.headline}>
             <span className="rise" style={{ ...S.line, animationDelay: "0s" }}>Você imagina</span>
             <span className="rise" style={{ ...S.line, ...S.lineItalic, animationDelay: ".12s" }}>a cor.</span>
@@ -934,9 +934,9 @@ export default function Calicolors() {
 
       {/* ════ AS 4 PORTAS — CASA DOS 4 PÚBLICOS ════ */}
       <section id="publico" style={S.audienceWrap}>
-        <div style={S.audienceTag}>A CASA DOS 4 PÚBLICOS</div>
+        <div style={S.audienceTag}>A CASA DE QUEM ENTENDE DE PINTURA</div>
         <h2 style={S.h2}>Escolha sua porta</h2>
-        <p style={S.note}>Cada público tem seu mundo de cor. Entre no seu.</p>
+        <p style={S.note}>Cliente, pintor, grafiteiro ou funileiro — cada um tem seu mundo de cor. Entre no seu.</p>
         <div style={S.portaGrid}>
           {[
             { id: "cliente",    to: "ferramentas", n: "01", emoji: "🏠", t: "Clientes",    promise: "Veja a cor na sua parede antes de comprar.", accent: "#c9a25e" },
