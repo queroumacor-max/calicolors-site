@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import * as THREE from "three";
 import "@google/model-viewer"; // registra o web component <model-viewer> para o catálogo 3D
+import HTMLFlipBook from "react-pageflip";
+import * as pdfjsLib from "pdfjs-dist";
+import pdfWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
 
 // ─────────────────────────────────────────────────────────────
 //  CALICOLORS — liquid-metal + Digital Color Wall (cores OFICIAIS SW)
@@ -22,6 +26,9 @@ const INSTAGRAM = "https://www.instagram.com/calicolorstintas";
 // troque `model: PLACEHOLDER_MODEL` por `model: SUPABASE_MODELS + "<arquivo>.glb"`.
 const SUPABASE_MODELS = "https://mmekvaqcebyufclmivaf.supabase.co/storage/v1/object/public/models/";
 const PLACEHOLDER_MODEL = "/models/placeholder.glb";
+// PDF de exemplo para o folheável dos catálogos. Troque por PDFs reais (Supabase Storage),
+// um por catálogo, no array `cats` (campo `pdf`).
+const SAMPLE_PDF = "/catalogs/exemplo.pdf";
 const PRODUCTS_3D = [
   { id: "atlas-airless", brand: "Atlas Powertech", name: "Máquina de Pintura Airless", desc: "Equipamento airless para pintura de grandes áreas com alta produtividade.", file: "atlas-airless.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Atlas_PowerTech_Gasol_0608184500_texture.glb" },
   { id: "atlas-lixadeira",  brand: "Atlas Powertech", name: "Lixadeira Orbital", desc: "Lixadeira orbital para preparo de superfícies antes da pintura.", file: "atlas-lixadeira.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Red_and_Black_Dual_Ac_0610051821_texture.glb" },
@@ -212,6 +219,89 @@ function LiquidCanvas({ themeColors, speed = 1, warp = 1, mouseAmt = 1 }) {
   return <div ref={ref} style={S.canvas} />;
 }
 
+// ── Flipbook: renderiza um PDF como catálogo folheável (react-pageflip + pdf.js) ──
+function Flipbook({ url, title, onClose }) {
+  const [pages, setPages] = useState([]);
+  const [status, setStatus] = useState("loading"); // loading | ready | error
+  const [ratio, setRatio] = useState(595 / 420);
+  const [page, setPage] = useState(0);
+  const bookRef = useRef(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    setStatus("loading"); setPages([]); setPage(0);
+    (async () => {
+      try {
+        const pdf = await pdfjsLib.getDocument(url).promise;
+        const imgs = [];
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const p = await pdf.getPage(i);
+          const base = p.getViewport({ scale: 1 });
+          if (i === 1 && !cancelled) setRatio(base.height / base.width);
+          const vp = p.getViewport({ scale: 1100 / base.width });
+          const canvas = document.createElement("canvas");
+          canvas.width = vp.width; canvas.height = vp.height;
+          await p.render({ canvasContext: canvas.getContext("2d"), viewport: vp }).promise;
+          if (cancelled) return;
+          imgs.push(canvas.toDataURL("image/jpeg", 0.82));
+        }
+        if (cancelled) return;
+        setPages(imgs); setStatus("ready");
+      } catch (e) { if (!cancelled) setStatus("error"); }
+    })();
+    return () => { cancelled = true; };
+  }, [url]);
+
+  const flip = (dir) => { const pf = bookRef.current?.pageFlip?.(); if (pf) dir < 0 ? pf.flipPrev() : pf.flipNext(); };
+  const baseW = 460, baseH = Math.round(baseW * ratio);
+
+  return (
+    <div style={S.flipOverlay} onClick={onClose}>
+      <div style={S.flipShell} onClick={(e) => e.stopPropagation()}>
+        <div style={S.flipBar}>
+          <span style={S.flipTitle}>{title}</span>
+          <button onClick={onClose} style={S.flipClose} aria-label="Fechar">✕</button>
+        </div>
+        <div style={S.flipStage}>
+          {status === "loading" && <div style={S.flipMsg}><span className="flip-spin" style={S.flipSpin} />Carregando catálogo…</div>}
+          {status === "error" && <div style={S.flipMsg}>Não foi possível carregar este catálogo.</div>}
+          {status === "ready" && pages.length > 0 && (
+            <HTMLFlipBook
+              key={url}
+              ref={bookRef}
+              width={baseW}
+              height={baseH}
+              size="stretch"
+              minWidth={250}
+              maxWidth={700}
+              minHeight={320}
+              maxHeight={1000}
+              maxShadowOpacity={0.5}
+              showCover={true}
+              mobileScrollSupport={true}
+              className="flipbook"
+              onFlip={(e) => setPage(e.data)}
+            >
+              {pages.map((src, i) => (
+                <div className="flip-page" key={i} style={S.flipPage}>
+                  <img src={src} alt={`Página ${i + 1}`} style={S.flipImg} />
+                </div>
+              ))}
+            </HTMLFlipBook>
+          )}
+        </div>
+        {status === "ready" && (
+          <div style={S.flipNav}>
+            <button onClick={() => flip(-1)} style={S.flipNavBtn} className="theme-btn" aria-label="Anterior">‹</button>
+            <span style={S.flipCount}>{Math.min(page + 1, pages.length)} / {pages.length}</span>
+            <button onClick={() => flip(1)} style={S.flipNavBtn} className="theme-btn" aria-label="Próxima">›</button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function Calicolors() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [theme, setTheme] = useState("ouro");
@@ -228,6 +318,7 @@ export default function Calicolors() {
   const [zoom, setZoom] = useState(false);
   const [hover, setHover] = useState(null); // tooltip ao passar o mouse
   const [model3d, setModel3d] = useState(null); // produto aberto no visualizador 3D
+  const [flipCat, setFlipCat] = useState(null); // catálogo aberto no flipbook
   const [detail, setDetail] = useState(null);
   const [palette, setPalette] = useState([]);
   const [activeCol, setActiveCol] = useState(0); // coleção designer selecionada
@@ -697,11 +788,12 @@ export default function Calicolors() {
     );
   };
 
+  // pdf: URL do catálogo (folheável). Troque pelo PDF real (ex.: Supabase Storage).
   const cats = [
-    { n: "01", t: "Sherwin-Williams", d: "Cores e linhas premium — sistema tintométrico." },
-    { n: "02", t: "ColorMix", d: "As tendências de cor do ano." },
-    { n: "03", t: "Ingco & Epex", d: "Ferramentas e acessórios de pintura." },
-    { n: "04", t: "Atlas Powertech", d: "Máquinas e equipamentos — consulte-nos." },
+    { n: "01", t: "Sherwin-Williams", d: "Cores e linhas premium — sistema tintométrico.", pdf: SAMPLE_PDF },
+    { n: "02", t: "ColorMix", d: "As tendências de cor do ano.", pdf: SAMPLE_PDF },
+    { n: "03", t: "Ingco & Epex", d: "Ferramentas e acessórios de pintura.", pdf: SAMPLE_PDF },
+    { n: "04", t: "Atlas Powertech", d: "Máquinas e equipamentos — consulte-nos.", pdf: SAMPLE_PDF },
   ];
 
   return (
@@ -1373,8 +1465,11 @@ export default function Calicolors() {
 
       <section id="catalogos" style={S.section}>
         <h2 style={S.h2}>Catálogos</h2>
-        <div style={S.cardGrid}>{cats.map((s)=>(<a key={s.n} href={WHATSAPP} target="_blank" rel="noreferrer" style={S.card} className="card"><div style={S.cardSheen} className="sheen" /><div style={S.cardNum}>{s.n}</div><h3 style={S.cardTitle}>{s.t}</h3><p style={S.cardDesc}>{s.d}</p></a>))}</div>
+        <p style={S.note}>Clique num catálogo para folhear as páginas (igual a uma revista).</p>
+        <div style={S.cardGrid}>{cats.map((s)=>(<button key={s.n} onClick={()=>setFlipCat(s)} style={{...S.card, textAlign:"left", cursor:"pointer", font:"inherit"}} className="card"><div style={S.cardSheen} className="sheen" /><div style={S.cardNum}>{s.n}</div><h3 style={S.cardTitle}>{s.t}</h3><p style={S.cardDesc}>{s.d}</p><span style={S.cardOpen}>Folhear catálogo →</span></button>))}</div>
       </section>
+
+      {flipCat && <Flipbook url={flipCat.pdf} title={flipCat.t} onClose={()=>setFlipCat(null)} />}
 
       {/* ════ CATÁLOGO 3D INTERATIVO ════ */}
       <section id="catalogo3d" style={S.section}>
@@ -1700,6 +1795,21 @@ const S = {
   modalName: { fontSize: 22, fontWeight: 700, fontFamily: DISPLAY, color: "#fff" },
   modalDesc: { fontSize: 13.5, lineHeight: 1.6, color: "#b8b0a2", margin: "4px 0 0", maxWidth: 520 },
   modalWa: { background: GOLD, color: "#0c0a08", padding: "12px 22px", borderRadius: 8, textDecoration: "none", fontSize: 12, letterSpacing: 1, fontWeight: 700, textTransform: "uppercase", whiteSpace: "nowrap" },
+  // flipbook (catálogos folheáveis)
+  cardOpen: { display: "inline-block", marginTop: 14, fontSize: 12, letterSpacing: 1, color: GOLD },
+  flipOverlay: { position: "fixed", inset: 0, zIndex: 90, background: "#000000d8", backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", padding: 16 },
+  flipShell: { position: "relative", width: "min(1000px, 100%)", height: "min(92vh, 100%)", display: "flex", flexDirection: "column", gap: 10 },
+  flipBar: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 },
+  flipTitle: { fontFamily: DISPLAY, fontSize: 20, color: "#fff" },
+  flipClose: { width: 40, height: 40, borderRadius: "50%", border: "1px solid #ffffff30", background: "#0c0a08cc", color: "#fff", cursor: "pointer", fontSize: 16, flexShrink: 0 },
+  flipStage: { flex: 1, minHeight: 0, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" },
+  flipMsg: { display: "flex", alignItems: "center", gap: 12, color: "#cfc6b6", fontSize: 14 },
+  flipSpin: { width: 18, height: 18, borderRadius: "50%", border: "2px solid #ffffff33", borderTopColor: GOLD, display: "inline-block" },
+  flipPage: { background: "#fff", boxShadow: "0 10px 40px #0008" },
+  flipImg: { width: "100%", height: "100%", objectFit: "contain", display: "block", background: "#fff" },
+  flipNav: { display: "flex", alignItems: "center", justifyContent: "center", gap: 18 },
+  flipNavBtn: { width: 46, height: 46, borderRadius: "50%", border: "1px solid #ffffff30", background: "#0c0a08cc", color: "#fff", cursor: "pointer", fontSize: 22, lineHeight: 1 },
+  flipCount: { color: "#cfc6b6", fontSize: 13, letterSpacing: 1, minWidth: 70, textAlign: "center" },
   about: { maxWidth: 1000, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" },
   aboutText: { fontSize: 16, lineHeight: 1.9, color: "#b8b0a2", marginBottom: 28 },
   contact: { position: "relative", zIndex: 5, textAlign: "center", padding: "150px 5vw 90px" },
@@ -1762,6 +1872,9 @@ body { background: #0c0a08; }
 .cta-prim:hover { transform: translateY(-2px); box-shadow: 0 12px 30px #c9a25e55; }
 .cta-ghost { transition: background .3s, color .3s, border-color .3s; }
 .cta-ghost:hover { background: #ece6db; color: #0c0a08 !important; border-color: #ece6db; }
+.flip-spin { animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.flipbook { margin: 0 auto; }
 .nav-burger:hover { border-color: #c9a25e !important; }
 @media (min-width: 781px) { .mobile-menu { display: none !important; } }
 @media (max-width: 780px) {
