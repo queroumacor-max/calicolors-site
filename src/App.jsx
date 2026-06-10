@@ -337,16 +337,18 @@ function Flipbook({ url, title, onClose }) {
 function CarConfigurator({ url }) {
   const ref = useRef(null);
   const [mats, setMats] = useState([]);     // nomes dos materiais do modelo
-  const [target, setTarget] = useState(0);  // índice do material da lataria (ou "all")
+  const [target, setTarget] = useState("body"); // "body" (auto) | "all" | índice (string)
   const [color, setColor] = useState(CAR_COLORS[0].h);
   const [loading, setLoading] = useState(true);
 
-  const apply = (hex, idx, el) => {
+  const apply = (hex, t, el) => {
     const m = (el || ref.current)?.model;
     if (!m) return;
+    const EXCLUDE = /glass|vidro|tire|tyre|pneu|wheel|roda|rim|aro|window|janela|light|lamp|farol|lanterna|head|tail|mirror|retro|brake|freio|caliper|pinca|rotor|disc|disco|chrome|cromo|interior|seat|banco|carbon|carbono|rubber|borracha|badge|logo|emblem|grille|grelha|plastic|plastico|trim|placa|screen|display|led|emissive|engine|motor|exhaust|escap|shadow|ground|floor/i;
     const setOne = (mat) => { try { mat.pbrMetallicRoughness.setBaseColorFactor(hex); } catch (e) {} };
-    if (idx === "all") m.materials.forEach(setOne);
-    else if (m.materials[idx]) setOne(m.materials[idx]);
+    if (t === "all") m.materials.forEach(setOne);
+    else if (t === "body") m.materials.forEach((mat) => { if (!EXCLUDE.test(mat.name || "")) setOne(mat); });
+    else { const i = Number(t); if (m.materials[i]) setOne(m.materials[i]); }
   };
 
   useEffect(() => {
@@ -356,10 +358,8 @@ function CarConfigurator({ url }) {
     const onLoad = () => {
       const m = el.model;
       const names = m ? m.materials.map((x, i) => x.name || `Material ${i}`) : [];
-      let idx = m ? m.materials.findIndex((x) => /body|paint|car|coat|lataria|exterior|base|carosserie|chassi/i.test(x.name || "")) : -1;
-      if (idx < 0) idx = 0;
-      setMats(names); setTarget(idx); setLoading(false);
-      apply(color, idx, el);
+      setMats(names); setLoading(false);
+      apply(color, "body", el);
     };
     el.addEventListener("load", onLoad);
     return () => el.removeEventListener("load", onLoad);
@@ -389,11 +389,12 @@ function CarConfigurator({ url }) {
           <button key={c.h} onClick={() => pick(c.h)} title={c.n} aria-label={c.n} style={{ ...S.carSwatch, background: c.h, ...(color === c.h ? { borderColor: "#fff", transform: "scale(1.14)" } : {}) }} />
         ))}
       </div>
-      {mats.length > 1 && (
+      {mats.length > 0 && (
         <label style={S.carMatRow}>
           <span style={S.toolLabel}>Parte pintável</span>
-          <select value={target} onChange={(e) => { const v = e.target.value === "all" ? "all" : Number(e.target.value); setTarget(v); apply(color, v); }} style={{ ...S.calcInput, maxWidth: 260 }}>
-            {mats.map((n, i) => (<option key={i} value={i}>{n}</option>))}
+          <select value={target} onChange={(e) => { const v = e.target.value; setTarget(v); apply(color, v); }} style={{ ...S.calcInput, maxWidth: 280 }}>
+            <option value="body">Carroceria (automático)</option>
+            {mats.map((n, i) => (<option key={i} value={String(i)}>{n}</option>))}
             <option value="all">Tudo</option>
           </select>
         </label>
@@ -907,7 +908,11 @@ export default function Calicolors() {
 
       <nav style={S.nav}>
         <a href="#" style={S.logoWrap} aria-label="Calicolors"><img src={LOGO} alt="Calicolors" style={S.logoImg} /></a>
-        <div style={S.navLinks} className="nav-links">{PUBLICOS.map((p)=>(<button key={p.id} onClick={()=>{ setAudience(p.id); setTimeout(()=>document.getElementById(p.to)?.scrollIntoView({behavior:"smooth",block:"start"}),70); }} style={{...S.navLink, background:"none", border:"none", cursor:"pointer", fontFamily:"inherit", padding:0, ...(audience===p.id?{color:GOLD}:{})}} className="navlink">{p.label}</button>))}</div>
+        <div style={S.navLinks} className="nav-links">
+          {PUBLICOS.map((p)=>(<button key={p.id} onClick={()=>{ setAudience(p.id); setTimeout(()=>document.getElementById(p.to)?.scrollIntoView({behavior:"smooth",block:"start"}),70); }} style={{...S.navLink, background:"none", border:"none", cursor:"pointer", fontFamily:"inherit", padding:0, ...(audience===p.id?{color:GOLD}:{})}} className="navlink">{p.label}</button>))}
+          <span style={S.navDivider} />
+          {[["Cores","cores"],["Designer","designer"],["Studio","ferramentas"],["Catálogos","catalogos"],["Vídeos","videos"],["QueroUmaCor","pintores"],["Contato","contato"]].map(([label,id])=>(<a key={id} href={`#${id}`} style={S.navLink} className="navlink">{label}</a>))}
+        </div>
         <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.license} className="navlink nav-orcamento">ORÇAMENTO ↗</a>
         <button className="nav-burger" style={S.burger} onClick={()=>setMenuOpen((o)=>!o)} aria-label="Menu" aria-expanded={menuOpen}>{menuOpen ? "✕" : "☰"}</button>
       </nav>
@@ -916,7 +921,7 @@ export default function Calicolors() {
           {PUBLICOS.map((p)=>(
             <button key={p.id} onClick={()=>{ setAudience(p.id); setMenuOpen(false); setTimeout(()=>document.getElementById(p.to)?.scrollIntoView({behavior:"smooth",block:"start"}),70); }} style={{...S.mobileLink, background:"none", cursor:"pointer", fontFamily:"inherit", textAlign:"left", width:"100%", border:"none", borderBottom:"1px solid #ffffff10", ...(audience===p.id?{color:GOLD}:{})}} className="navlink">{p.label}</button>
           ))}
-          {[["Cores","cores"],["Catálogos","catalogos"],["Vídeos","videos"],["Contato","contato"]].map(([label,id])=>(
+          {[["Cores","cores"],["Designer","designer"],["Studio","ferramentas"],["Catálogos","catalogos"],["Máquinas 3D","catalogo3d"],["Vídeos","videos"],["QueroUmaCor","pintores"],["Contato","contato"]].map(([label,id])=>(
             <a key={id} href={`#${id}`} style={{...S.mobileLink, fontSize:12, color:"#9b948a"}} className="navlink" onClick={()=>setMenuOpen(false)}>{label}</a>
           ))}
           <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.mobileCta} className="cta-prim" onClick={()=>setMenuOpen(false)}>ORÇAMENTO ↗</a>
@@ -1731,7 +1736,8 @@ const S = {
   logoWrap: { display: "flex", alignItems: "center", textDecoration: "none", lineHeight: 0 },
   logoImg: { height: 42, width: "auto", display: "block", filter: "drop-shadow(0 2px 10px #000000aa)" },
   heroLogo: { width: "clamp(170px,28vw,380px)", maxWidth: "78vw", height: "auto", display: "block", marginBottom: 26, filter: "drop-shadow(0 6px 30px #00000099)" },
-  navLinks: { display: "flex", gap: 30 },
+  navLinks: { display: "flex", gap: 15, flexWrap: "wrap", justifyContent: "center", rowGap: 6, alignItems: "center" },
+  navDivider: { width: 1, height: 13, background: "#ffffff2a", alignSelf: "center", margin: "0 2px" },
   navLink: { color: "#ece6db", textDecoration: "none", fontSize: 12, letterSpacing: 2, textTransform: "uppercase" },
   license: { fontSize: 11, color: GOLD, opacity: 0.85, letterSpacing: 2, textDecoration: "none" },
   burger: { display: "none", alignItems: "center", justifyContent: "center", width: 44, height: 44, borderRadius: 12, border: "1px solid #ffffff33", background: "#0c0a0899", color: "#ece6db", fontSize: 20, cursor: "pointer", lineHeight: 1, backdropFilter: "blur(6px)" },
