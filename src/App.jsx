@@ -37,6 +37,13 @@ const CAR_COLORS = [
   { n: "Amarelo", h: "#f2c20a" }, { n: "Verde", h: "#1f7a44" }, { n: "Laranja", h: "#e8631a" },
   { n: "Vinho", h: "#5e1322" }, { n: "Roxo", h: "#6b3fa0" }, { n: "Dourado", h: "#c9a25e" },
 ];
+// carros disponíveis no configurador (adicione mais aqui).
+const CARS = [
+  { id: "ferrari", name: "Ferrari LaFerrari", url: CAR_MODEL },
+  { id: "pagani", name: "Pagani Imola", url: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/sign/Automotivo/2021_pagani_imola.glb?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84NGFmZjVmYi1lYmEwLTQ5ZGMtYWJlNS01MjhjZDBmMDQ5NGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBdXRvbW90aXZvLzIwMjFfcGFnYW5pX2ltb2xhLmdsYiIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODEwNzg1MDYsImV4cCI6MzM1Nzg3ODUwNn0.hqzC5jll3I4k5JDBtfcyuB6sOPQDqvKLyF_EMIoDwBo" },
+  { id: "lamborghini", name: "Lamborghini Veneno", url: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/sign/Automotivo/lamborghini_venevo.glb?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84NGFmZjVmYi1lYmEwLTQ5ZGMtYWJlNS01MjhjZDBmMDQ5NGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBdXRvbW90aXZvL2xhbWJvcmdoaW5pX3ZlbmV2by5nbGIiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxMDc4NTMyLCJleHAiOjMzNTc4Nzg1MzJ9.W0COzzvjg-m-N77rbYwz_qb2AEKdVEmYm_QRDVVxAQ0" },
+  { id: "mclaren", name: "McLaren 720S", url: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/sign/Automotivo/maclaren_720_s.glb?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84NGFmZjVmYi1lYmEwLTQ5ZGMtYWJlNS01MjhjZDBmMDQ5NGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBdXRvbW90aXZvL21hY2xhcmVuXzcyMF9zLmdsYiIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODEwNzg1NTQsImV4cCI6MzY0MTcwMjU1NH0.e6E9OVqsKJBuX8Ioni0vbcD2qX2WPfOD_Yheo-6MowU" },
+];
 // menu principal = os 4 públicos. `to` = id da seção pra onde rolar ao selecionar.
 const PUBLICOS = [
   { id: "cliente", label: "Clientes", to: "ferramentas" },
@@ -334,12 +341,14 @@ function Flipbook({ url, title, onClose }) {
 }
 
 // ── CarConfigurator: carro 3D que troca a cor da lataria ao clicar na paleta ──
-function CarConfigurator({ url }) {
+function CarConfigurator() {
   const ref = useRef(null);
+  const [carIdx, setCarIdx] = useState(0);
   const [mats, setMats] = useState([]);     // nomes dos materiais do modelo
   const [target, setTarget] = useState("body"); // "body" (auto) | "all" | índice (string)
   const [color, setColor] = useState(CAR_COLORS[0].h);
   const [loading, setLoading] = useState(true);
+  const url = CARS[carIdx].url;
 
   const apply = (hex, t, el) => {
     const m = (el || ref.current)?.model;
@@ -370,7 +379,12 @@ function CarConfigurator({ url }) {
   return (
     <div style={S.tool}>
       <div style={S.toolHead}><span style={S.toolNum}>00</span><h3 style={S.toolTitle}>Veja a cor na lataria — em 3D</h3></div>
-      <p style={S.toolDesc}>Clique numa cor e veja a pintura mudar no carro na hora. Gire, dê zoom e imagine o seu.</p>
+      <p style={S.toolDesc}>Escolha o carro, clique numa cor e veja a pintura mudar na hora. Gire e dê zoom.</p>
+      <div style={S.carPicker}>
+        {CARS.map((c, i) => (
+          <button key={c.id} onClick={() => { setCarIdx(i); setTarget("body"); }} style={{ ...S.carPickBtn, ...(carIdx === i ? S.carPickActive : {}) }} className="theme-btn">{c.name}</button>
+        ))}
+      </div>
       <div style={S.carStage}>
         <model-viewer
           ref={ref}
@@ -1518,7 +1532,7 @@ export default function Calicolors() {
         <h2 style={S.h2}>Sua oficina, em cor</h2>
         <p style={S.note}>Escolha a cor e veja na lataria em 3D — depois, os cálculos de referência pra repintura.</p>
 
-        <CarConfigurator url={CAR_MODEL} />
+        <CarConfigurator />
 
         {/* A1 — Tinta por peça */}
         <div style={S.tool}>
@@ -1980,6 +1994,9 @@ const S = {
   flipNavBtn: { width: 46, height: 46, borderRadius: "50%", border: "1px solid #ffffff30", background: "#0c0a08cc", color: "#fff", cursor: "pointer", fontSize: 22, lineHeight: 1 },
   flipCount: { color: "#cfc6b6", fontSize: 13, letterSpacing: 1, minWidth: 70, textAlign: "center" },
   // configurador de carro 3D
+  carPicker: { display: "flex", flexWrap: "wrap", gap: 8, marginTop: 12 },
+  carPickBtn: { padding: "8px 14px", borderRadius: 10, border: "1px solid #ffffff22", background: "#0c0a0899", color: "#ece6db", cursor: "pointer", fontSize: 12.5, letterSpacing: 0.5, transition: "all .25s" },
+  carPickActive: { borderColor: GOLD, background: "#c9a25e1f", color: "#fff" },
   carStage: { position: "relative", width: "100%", height: "clamp(300px, 52vh, 540px)", borderRadius: 16, overflow: "hidden", background: "radial-gradient(120% 110% at 50% 18%, #23262b 0%, #0c0a08 78%)", marginTop: 12 },
   carLoading: { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", display: "flex", alignItems: "center", gap: 10, color: "#cfc6b6", fontSize: 14, pointerEvents: "none" },
   carSwatches: { display: "flex", flexWrap: "wrap", gap: 12, marginTop: 16 },
