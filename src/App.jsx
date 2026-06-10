@@ -822,13 +822,13 @@ export default function Calicolors() {
 
       <nav style={S.nav}>
         <a href="#" style={S.logoWrap} aria-label="Calicolors"><img src={LOGO} alt="Calicolors" style={S.logoImg} /></a>
-        <div style={S.navLinks} className="nav-links">{[["Cores","cores"],["Designer","designer"],["Ferramentas","ferramentas"],["Catálogos","catalogos"],["Vídeos","videos"],["Pintores","pintores"],["Contato","contato"]].map(([label,id])=>(<a key={id} href={`#${id}`} style={S.navLink} className="navlink">{label}</a>))}</div>
+        <div style={S.navLinks} className="nav-links">{[["Cores","cores"],["Designer","designer"],["Studio","ferramentas"],["Catálogos","catalogos"],["Vídeos","videos"],["Pintores","pintores"],["Contato","contato"]].map(([label,id])=>(<a key={id} href={`#${id}`} style={S.navLink} className="navlink">{label}</a>))}</div>
         <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.license} className="navlink nav-orcamento">ORÇAMENTO ↗</a>
         <button className="nav-burger" style={S.burger} onClick={()=>setMenuOpen((o)=>!o)} aria-label="Menu" aria-expanded={menuOpen}>{menuOpen ? "✕" : "☰"}</button>
       </nav>
       {menuOpen && (
         <div className="mobile-menu" style={S.mobileMenu}>
-          {[["Cores","cores"],["Designer","designer"],["Ferramentas","ferramentas"],["Catálogos","catalogos"],["Máquinas 3D","catalogo3d"],["Vídeos","videos"],["Pintores","pintores"],["Contato","contato"]].map(([label,id])=>(
+          {[["Cores","cores"],["Designer","designer"],["Studio","ferramentas"],["Catálogos","catalogos"],["Máquinas 3D","catalogo3d"],["Vídeos","videos"],["Pintores","pintores"],["Contato","contato"]].map(([label,id])=>(
             <a key={id} href={`#${id}`} style={S.mobileLink} className="navlink" onClick={()=>setMenuOpen(false)}>{label}</a>
           ))}
           <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.mobileCta} className="cta-prim" onClick={()=>setMenuOpen(false)}>ORÇAMENTO ↗</a>
@@ -837,13 +837,13 @@ export default function Calicolors() {
 
       <section style={S.hero} className="hero">
         <div style={{ ...S.heroInner, transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}>
-          <div style={S.kicker}>MASTER RESELLER SHERWIN-WILLIAMS · GUARULHOS / SP</div>
+          <div style={S.kicker}>A CASA DOS 4 PÚBLICOS</div>
           <h1 style={S.headline}>
             <span className="rise" style={{ ...S.line, animationDelay: "0s" }}>Você imagina</span>
             <span className="rise" style={{ ...S.line, ...S.lineItalic, animationDelay: ".12s" }}>a cor.</span>
             <span className="rise liquidText" style={{ ...S.line, animationDelay: ".24s" }}>A gente materializa.</span>
           </h1>
-          <p style={S.sub}>Explore as {String(SW_COLORS.length)} cores Sherwin-Williams, monte sua paleta e veja o tom preencher a tela — no coração de Guarulhos.</p>
+          <p style={S.sub}>Clientes, pintores, grafiteiros e funileiros — cada um tem seu mundo de cor aqui. Escolha a sua porta e entre.</p>
           <div style={S.ctaRow}>
             <a href="#cores" style={S.ctaPrimary} className="cta-prim">Explorar cores →</a>
             <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.ctaGhost} className="cta-ghost">Pedir orçamento</a>
@@ -995,9 +995,9 @@ export default function Calicolors() {
       {/* ════ FERRAMENTAS DE COR ════ */}
       {audience === "geral" && (
       <section id="ferramentas" style={S.section}>
-        <div style={S.dcTagline}>FERRAMENTAS EXCLUSIVAS CALICOLORS</div>
+        <div style={S.dcTagline}>STUDIO DE COR · CALICOLORS</div>
         <h2 style={S.h2}>Brinque com a cor</h2>
-        <p style={S.note}>Cinco ferramentas que usam as cores reais Sherwin-Williams. Tudo no seu navegador.</p>
+        <p style={S.note}>Cinco experiências de cor com as tonalidades reais Sherwin-Williams. Tudo no seu navegador.</p>
 
         {/* #4 — Match por foto */}
         <div style={S.tool}>
