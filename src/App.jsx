@@ -29,6 +29,14 @@ const PLACEHOLDER_MODEL = "/models/placeholder.glb";
 // PDF de exemplo para o folheável dos catálogos. Troque por PDFs reais (Supabase Storage),
 // um por catálogo, no array `cats` (campo `pdf`).
 const SAMPLE_PDF = "/catalogs/exemplo.pdf";
+// Configurador de carro 3D (funileiro): clicar na cor muda a lataria via model-viewer.
+const CAR_MODEL = "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/sign/Automotivo/ferrari_laferrari__www.vecarz.com.glb?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84NGFmZjVmYi1lYmEwLTQ5ZGMtYWJlNS01MjhjZDBmMDQ5NGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBdXRvbW90aXZvL2ZlcnJhcmlfbGFmZXJyYXJpX193d3cudmVjYXJ6LmNvbS5nbGIiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxMDc3MjEzLCJleHAiOjMzNTc4NzcyMTN9.ZIpFY4bY2L6wxY7N0Wq3hcpMC168tn_eJrWbmac3WKM";
+const CAR_COLORS = [
+  { n: "Vermelho Rosso", h: "#c81d1d" }, { n: "Preto", h: "#0b0b0d" }, { n: "Branco Pérola", h: "#eef0f2" },
+  { n: "Prata", h: "#b9bcc0" }, { n: "Grafite", h: "#34373c" }, { n: "Azul", h: "#1f4fa3" },
+  { n: "Amarelo", h: "#f2c20a" }, { n: "Verde", h: "#1f7a44" }, { n: "Laranja", h: "#e8631a" },
+  { n: "Vinho", h: "#5e1322" }, { n: "Roxo", h: "#6b3fa0" }, { n: "Dourado", h: "#c9a25e" },
+];
 const PRODUCTS_3D = [
   { id: "atlas-airless", brand: "Atlas Powertech", name: "Máquina de Pintura Airless", desc: "Equipamento airless para pintura de grandes áreas com alta produtividade.", file: "atlas-airless.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Atlas_PowerTech_Gasol_0608184500_texture.glb" },
   { id: "atlas-lixadeira",  brand: "Atlas Powertech", name: "Lixadeira Orbital", desc: "Lixadeira orbital para preparo de superfícies antes da pintura.", file: "atlas-lixadeira.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Red_and_Black_Dual_Ac_0610051821_texture.glb" },
@@ -314,6 +322,76 @@ function Flipbook({ url, title, onClose }) {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+// ── CarConfigurator: carro 3D que troca a cor da lataria ao clicar na paleta ──
+function CarConfigurator({ url }) {
+  const ref = useRef(null);
+  const [mats, setMats] = useState([]);     // nomes dos materiais do modelo
+  const [target, setTarget] = useState(0);  // índice do material da lataria (ou "all")
+  const [color, setColor] = useState(CAR_COLORS[0].h);
+  const [loading, setLoading] = useState(true);
+
+  const apply = (hex, idx, el) => {
+    const m = (el || ref.current)?.model;
+    if (!m) return;
+    const setOne = (mat) => { try { mat.pbrMetallicRoughness.setBaseColorFactor(hex); } catch (e) {} };
+    if (idx === "all") m.materials.forEach(setOne);
+    else if (m.materials[idx]) setOne(m.materials[idx]);
+  };
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    setLoading(true);
+    const onLoad = () => {
+      const m = el.model;
+      const names = m ? m.materials.map((x, i) => x.name || `Material ${i}`) : [];
+      let idx = m ? m.materials.findIndex((x) => /body|paint|car|coat|lataria|exterior|base|carosserie|chassi/i.test(x.name || "")) : -1;
+      if (idx < 0) idx = 0;
+      setMats(names); setTarget(idx); setLoading(false);
+      apply(color, idx, el);
+    };
+    el.addEventListener("load", onLoad);
+    return () => el.removeEventListener("load", onLoad);
+  }, [url]);
+
+  const pick = (hex) => { setColor(hex); apply(hex, target); };
+
+  return (
+    <div style={S.tool}>
+      <div style={S.toolHead}><span style={S.toolNum}>00</span><h3 style={S.toolTitle}>Veja a cor na lataria — em 3D</h3></div>
+      <p style={S.toolDesc}>Clique numa cor e veja a pintura mudar no carro na hora. Gire, dê zoom e imagine o seu.</p>
+      <div style={S.carStage}>
+        <model-viewer
+          ref={ref}
+          src={url}
+          camera-controls=""
+          auto-rotate=""
+          environment-image="neutral"
+          exposure="1"
+          shadow-intensity="1"
+          style={{ width: "100%", height: "100%", background: "transparent" }}
+        ></model-viewer>
+        {loading && <div style={S.carLoading}><span className="flip-spin" style={S.flipSpin} />Carregando o carro…</div>}
+      </div>
+      <div style={S.carSwatches}>
+        {CAR_COLORS.map((c) => (
+          <button key={c.h} onClick={() => pick(c.h)} title={c.n} aria-label={c.n} style={{ ...S.carSwatch, background: c.h, ...(color === c.h ? { borderColor: "#fff", transform: "scale(1.14)" } : {}) }} />
+        ))}
+      </div>
+      {mats.length > 1 && (
+        <label style={S.carMatRow}>
+          <span style={S.toolLabel}>Parte pintável</span>
+          <select value={target} onChange={(e) => { const v = e.target.value === "all" ? "all" : Number(e.target.value); setTarget(v); apply(color, v); }} style={{ ...S.calcInput, maxWidth: 260 }}>
+            {mats.map((n, i) => (<option key={i} value={i}>{n}</option>))}
+            <option value="all">Tudo</option>
+          </select>
+        </label>
+      )}
+      <a href={`${WHATSAPP}?text=${encodeURIComponent("Olá! Quero repintar meu carro. Pode me orçar a cor e o material?")}`} target="_blank" rel="noreferrer" style={{ ...S.dcApply, display: "inline-block", marginTop: 14 }} className="cta-prim">Orçar repintura ↗</a>
     </div>
   );
 }
@@ -1422,8 +1500,10 @@ export default function Calicolors() {
       {audience === "funileiro" && (
       <section id="ferramentas" style={S.section}>
         <div style={S.dcTagline}>REPINTURA AUTOMOTIVA · FUNILARIA & PINTURA</div>
-        <h2 style={S.h2}>Ferramentas pra oficina</h2>
-        <p style={S.note}>Cálculos de referência pra repintura automotiva.</p>
+        <h2 style={S.h2}>Sua oficina, em cor</h2>
+        <p style={S.note}>Escolha a cor e veja na lataria em 3D — depois, os cálculos de referência pra repintura.</p>
+
+        <CarConfigurator url={CAR_MODEL} />
 
         {/* A1 — Tinta por peça */}
         <div style={S.tool}>
@@ -1883,6 +1963,12 @@ const S = {
   flipNav: { display: "flex", alignItems: "center", justifyContent: "center", gap: 18 },
   flipNavBtn: { width: 46, height: 46, borderRadius: "50%", border: "1px solid #ffffff30", background: "#0c0a08cc", color: "#fff", cursor: "pointer", fontSize: 22, lineHeight: 1 },
   flipCount: { color: "#cfc6b6", fontSize: 13, letterSpacing: 1, minWidth: 70, textAlign: "center" },
+  // configurador de carro 3D
+  carStage: { position: "relative", width: "100%", height: "clamp(300px, 52vh, 540px)", borderRadius: 16, overflow: "hidden", background: "radial-gradient(120% 110% at 50% 18%, #23262b 0%, #0c0a08 78%)", marginTop: 12 },
+  carLoading: { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", display: "flex", alignItems: "center", gap: 10, color: "#cfc6b6", fontSize: 14, pointerEvents: "none" },
+  carSwatches: { display: "flex", flexWrap: "wrap", gap: 12, marginTop: 16 },
+  carSwatch: { width: 40, height: 40, borderRadius: "50%", border: "2px solid #ffffff33", cursor: "pointer", transition: "transform .2s, border-color .2s", padding: 0 },
+  carMatRow: { display: "flex", alignItems: "center", gap: 10, marginTop: 14, flexWrap: "wrap" },
   about: { maxWidth: 1000, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" },
   aboutText: { fontSize: 16, lineHeight: 1.9, color: "#b8b0a2", marginBottom: 28 },
   contact: { position: "relative", zIndex: 5, textAlign: "center", padding: "150px 5vw 90px" },
