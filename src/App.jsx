@@ -5,6 +5,8 @@ import HTMLFlipBook from "react-pageflip";
 import * as pdfjsLib from "pdfjs-dist";
 import pdfWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
+import GrafiteiroSection from "./sections/GrafiteiroSection";
+import PintorSection from "./sections/PintorSection";
 
 // ─────────────────────────────────────────────────────────────
 //  CALICOLORS — liquid-metal + Digital Color Wall (cores OFICIAIS SW)
@@ -47,7 +49,7 @@ const CARS = [
 // menu principal = os 4 públicos. `to` = id da seção pra onde rolar ao selecionar.
 const PUBLICOS = [
   { id: "cliente", label: "Clientes", to: "ferramentas" },
-  { id: "pintor", label: "Pintores", to: "catalogo3d" },
+  { id: "pintor", label: "Pintores", to: "pintor-mundo" },
   { id: "grafiteiro", label: "Grafiteiros", to: "ferramentas" },
   { id: "funileiro", label: "Funileiros", to: "ferramentas" },
 ];
@@ -978,7 +980,7 @@ export default function Calicolors() {
         <div style={S.portaGrid}>
           {[
             { id: "cliente",    to: "ferramentas", n: "01", emoji: "🏠", t: "Clientes",    promise: "Veja a cor na sua parede antes de comprar.", accent: "#c9a25e" },
-            { id: "pintor",     to: "catalogo3d",  n: "02", emoji: "🛠️", t: "Pintores",    promise: "Ferramentas e máquinas que pagam a obra.",   accent: "#4ea1d3" },
+            { id: "pintor",     to: "pintor-mundo", n: "02", emoji: "🛠️", t: "Pintores",    promise: "Ferramentas e máquinas que pagam a obra.",   accent: "#4ea1d3" },
             { id: "grafiteiro", to: "ferramentas", n: "03", emoji: "🎨", t: "Grafiteiros", promise: "Sua arte em escala — cor que grita na parede.", accent: "#e0479e" },
             { id: "funileiro",  to: "ferramentas", n: "04", emoji: "🚗", t: "Funileiros",  promise: "A cor exata da lataria, na primeira demão.",  accent: "#d3543f" },
           ].map((p) => (
@@ -1671,6 +1673,9 @@ export default function Calicolors() {
           </div>
         </div>
       )}
+
+      {audience === "grafiteiro" && <GrafiteiroSection whatsapp={WHATSAPP} />}
+      {audience === "pintor" && (<div id="pintor-mundo"><PintorSection whatsapp={WHATSAPP} /></div>)}
 
       {/* ════ VÍDEOS INSTITUCIONAIS ════ */}
       <section id="videos" style={S.section}>
