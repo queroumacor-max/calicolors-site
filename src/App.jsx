@@ -37,6 +37,13 @@ const CAR_COLORS = [
   { n: "Amarelo", h: "#f2c20a" }, { n: "Verde", h: "#1f7a44" }, { n: "Laranja", h: "#e8631a" },
   { n: "Vinho", h: "#5e1322" }, { n: "Roxo", h: "#6b3fa0" }, { n: "Dourado", h: "#c9a25e" },
 ];
+// menu principal = os 4 públicos. `to` = id da seção pra onde rolar ao selecionar.
+const PUBLICOS = [
+  { id: "cliente", label: "Clientes", to: "ferramentas" },
+  { id: "pintor", label: "Pintores", to: "catalogo3d" },
+  { id: "grafiteiro", label: "Grafiteiros", to: "ferramentas" },
+  { id: "funileiro", label: "Funileiros", to: "ferramentas" },
+];
 const PRODUCTS_3D = [
   { id: "atlas-airless", brand: "Atlas Powertech", name: "Máquina de Pintura Airless", desc: "Equipamento airless para pintura de grandes áreas com alta produtividade.", file: "atlas-airless.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Atlas_PowerTech_Gasol_0608184500_texture.glb" },
   { id: "atlas-lixadeira",  brand: "Atlas Powertech", name: "Lixadeira Orbital", desc: "Lixadeira orbital para preparo de superfícies antes da pintura.", file: "atlas-lixadeira.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Red_and_Black_Dual_Ac_0610051821_texture.glb" },
@@ -900,14 +907,17 @@ export default function Calicolors() {
 
       <nav style={S.nav}>
         <a href="#" style={S.logoWrap} aria-label="Calicolors"><img src={LOGO} alt="Calicolors" style={S.logoImg} /></a>
-        <div style={S.navLinks} className="nav-links">{[["Cores","cores"],["Designer","designer"],["Studio","ferramentas"],["Catálogos","catalogos"],["Vídeos","videos"],["Pintores","pintores"],["Contato","contato"]].map(([label,id])=>(<a key={id} href={`#${id}`} style={S.navLink} className="navlink">{label}</a>))}</div>
+        <div style={S.navLinks} className="nav-links">{PUBLICOS.map((p)=>(<button key={p.id} onClick={()=>{ setAudience(p.id); setTimeout(()=>document.getElementById(p.to)?.scrollIntoView({behavior:"smooth",block:"start"}),70); }} style={{...S.navLink, background:"none", border:"none", cursor:"pointer", fontFamily:"inherit", padding:0, ...(audience===p.id?{color:GOLD}:{})}} className="navlink">{p.label}</button>))}</div>
         <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.license} className="navlink nav-orcamento">ORÇAMENTO ↗</a>
         <button className="nav-burger" style={S.burger} onClick={()=>setMenuOpen((o)=>!o)} aria-label="Menu" aria-expanded={menuOpen}>{menuOpen ? "✕" : "☰"}</button>
       </nav>
       {menuOpen && (
         <div className="mobile-menu" style={S.mobileMenu}>
-          {[["Cores","cores"],["Designer","designer"],["Studio","ferramentas"],["Catálogos","catalogos"],["Máquinas 3D","catalogo3d"],["Vídeos","videos"],["Pintores","pintores"],["Contato","contato"]].map(([label,id])=>(
-            <a key={id} href={`#${id}`} style={S.mobileLink} className="navlink" onClick={()=>setMenuOpen(false)}>{label}</a>
+          {PUBLICOS.map((p)=>(
+            <button key={p.id} onClick={()=>{ setAudience(p.id); setMenuOpen(false); setTimeout(()=>document.getElementById(p.to)?.scrollIntoView({behavior:"smooth",block:"start"}),70); }} style={{...S.mobileLink, background:"none", cursor:"pointer", fontFamily:"inherit", textAlign:"left", width:"100%", border:"none", borderBottom:"1px solid #ffffff10", ...(audience===p.id?{color:GOLD}:{})}} className="navlink">{p.label}</button>
+          ))}
+          {[["Cores","cores"],["Catálogos","catalogos"],["Vídeos","videos"],["Contato","contato"]].map(([label,id])=>(
+            <a key={id} href={`#${id}`} style={{...S.mobileLink, fontSize:12, color:"#9b948a"}} className="navlink" onClick={()=>setMenuOpen(false)}>{label}</a>
           ))}
           <a href={WHATSAPP} target="_blank" rel="noreferrer" style={S.mobileCta} className="cta-prim" onClick={()=>setMenuOpen(false)}>ORÇAMENTO ↗</a>
         </div>
