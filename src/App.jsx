@@ -39,10 +39,10 @@ const CAR_COLORS = [
 ];
 // carros disponíveis no configurador (adicione mais aqui).
 const CARS = [
-  { id: "ferrari", name: "Ferrari LaFerrari", url: CAR_MODEL },
-  { id: "pagani", name: "Pagani Imola", url: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/sign/Automotivo/2021_pagani_imola.glb?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84NGFmZjVmYi1lYmEwLTQ5ZGMtYWJlNS01MjhjZDBmMDQ5NGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBdXRvbW90aXZvLzIwMjFfcGFnYW5pX2ltb2xhLmdsYiIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODEwNzg1MDYsImV4cCI6MzM1Nzg3ODUwNn0.hqzC5jll3I4k5JDBtfcyuB6sOPQDqvKLyF_EMIoDwBo" },
-  { id: "lamborghini", name: "Lamborghini Veneno", url: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/sign/Automotivo/lamborghini_venevo.glb?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84NGFmZjVmYi1lYmEwLTQ5ZGMtYWJlNS01MjhjZDBmMDQ5NGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBdXRvbW90aXZvL2xhbWJvcmdoaW5pX3ZlbmV2by5nbGIiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxMDc4NTMyLCJleHAiOjMzNTc4Nzg1MzJ9.W0COzzvjg-m-N77rbYwz_qb2AEKdVEmYm_QRDVVxAQ0" },
-  { id: "mclaren", name: "McLaren 720S", url: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/sign/Automotivo/maclaren_720_s.glb?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84NGFmZjVmYi1lYmEwLTQ5ZGMtYWJlNS01MjhjZDBmMDQ5NGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBdXRvbW90aXZvL21hY2xhcmVuXzcyMF9zLmdsYiIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODEwNzg1NTQsImV4cCI6MzY0MTcwMjU1NH0.e6E9OVqsKJBuX8Ioni0vbcD2qX2WPfOD_Yheo-6MowU" },
+  { id: "ferrari", name: "Ferrari LaFerrari", quote: "Aerodinâmica é para pessoas que não sabem construir motores.", author: "Enzo Ferrari", url: CAR_MODEL },
+  { id: "pagani", name: "Pagani Imola", quote: "A arte e a ciência podem andar de mãos dadas.", author: "Horacio Pagani", url: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/sign/Automotivo/2021_pagani_imola.glb?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84NGFmZjVmYi1lYmEwLTQ5ZGMtYWJlNS01MjhjZDBmMDQ5NGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBdXRvbW90aXZvLzIwMjFfcGFnYW5pX2ltb2xhLmdsYiIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODEwNzg1MDYsImV4cCI6MzM1Nzg3ODUwNn0.hqzC5jll3I4k5JDBtfcyuB6sOPQDqvKLyF_EMIoDwBo" },
+  { id: "lamborghini", name: "Lamborghini Veneno", quote: "Você compra uma Ferrari quando quer ser alguém. Você compra uma Lamborghini quando já é alguém.", author: "Ferruccio Lamborghini", url: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/sign/Automotivo/lamborghini_venevo.glb?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84NGFmZjVmYi1lYmEwLTQ5ZGMtYWJlNS01MjhjZDBmMDQ5NGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBdXRvbW90aXZvL2xhbWJvcmdoaW5pX3ZlbmV2by5nbGIiLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxMDc4NTMyLCJleHAiOjMzNTc4Nzg1MzJ9.W0COzzvjg-m-N77rbYwz_qb2AEKdVEmYm_QRDVVxAQ0" },
+  { id: "mclaren", name: "McLaren 720S", quote: "A vida é medida pelas conquistas, não apenas pelos anos.", author: "Bruce McLaren", url: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/sign/Automotivo/maclaren_720_s.glb?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV84NGFmZjVmYi1lYmEwLTQ5ZGMtYWJlNS01MjhjZDBmMDQ5NGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBdXRvbW90aXZvL21hY2xhcmVuXzcyMF9zLmdsYiIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODEwNzg1NTQsImV4cCI6MzY0MTcwMjU1NH0.e6E9OVqsKJBuX8Ioni0vbcD2qX2WPfOD_Yheo-6MowU" },
 ];
 // menu principal = os 4 públicos. `to` = id da seção pra onde rolar ao selecionar.
 const PUBLICOS = [
@@ -397,6 +397,10 @@ function CarConfigurator() {
           style={{ width: "100%", height: "100%", background: "transparent" }}
         ></model-viewer>
         {loading && <div style={S.carLoading}><span className="flip-spin" style={S.flipSpin} />Carregando o carro…</div>}
+        <div key={carIdx} className="car-quote" style={S.carQuoteWrap}>
+          <p style={S.carQuote}>“{CARS[carIdx].quote}”</p>
+          <span style={S.carQuoteAuthor}>— {CARS[carIdx].author}</span>
+        </div>
       </div>
       <div style={S.carSwatches}>
         {CAR_COLORS.map((c) => (
@@ -1999,6 +2003,9 @@ const S = {
   carPickActive: { borderColor: GOLD, background: "#c9a25e1f", color: "#fff" },
   carStage: { position: "relative", width: "100%", height: "clamp(300px, 52vh, 540px)", borderRadius: 16, overflow: "hidden", background: "radial-gradient(120% 110% at 50% 18%, #23262b 0%, #0c0a08 78%)", marginTop: 12 },
   carLoading: { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", display: "flex", alignItems: "center", gap: 10, color: "#cfc6b6", fontSize: 14, pointerEvents: "none" },
+  carQuoteWrap: { position: "absolute", left: 0, right: 0, bottom: 0, padding: "60px 26px 22px", background: "linear-gradient(transparent, #0c0a08e6)", pointerEvents: "none" },
+  carQuote: { margin: 0, fontFamily: DISPLAY, fontStyle: "italic", fontSize: "clamp(15px, 2.3vw, 26px)", lineHeight: 1.35, color: "#fff", textShadow: "0 2px 18px #000", maxWidth: 760 },
+  carQuoteAuthor: { display: "block", marginTop: 10, fontSize: 11.5, letterSpacing: 2, textTransform: "uppercase", color: GOLD },
   carSwatches: { display: "flex", flexWrap: "wrap", gap: 12, marginTop: 16 },
   carSwatch: { width: 40, height: 40, borderRadius: "50%", border: "2px solid #ffffff33", cursor: "pointer", transition: "transform .2s, border-color .2s", padding: 0 },
   carMatRow: { display: "flex", alignItems: "center", gap: 10, marginTop: 14, flexWrap: "wrap" },
@@ -2068,6 +2075,8 @@ body { background: #0c0a08; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .flipbook { margin: 0 auto; }
 .porta:hover { transform: translateY(-6px); border-color: #ffffff44 !important; }
+.car-quote { animation: quoteIn 1s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes quoteIn { 0% { opacity: 0; transform: translateY(20px); filter: blur(9px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
 .nav-burger:hover { border-color: #c9a25e !important; }
 @media (min-width: 781px) { .mobile-menu { display: none !important; } }
 @media (max-width: 780px) {
