@@ -37,6 +37,7 @@ const PRODUCTS_3D = [
   { id: "atlas-aspirador", brand: "Atlas Powertech", name: "Aspirador/Extrator de Pó 1190W", desc: "Aspirador e extrator de pó elétrico 1190W / 127V, uso pó e líquidos.", file: "atlas-aspirador.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Red_Wet_Dry_Vacuum_Cl_0610065113_texture.glb" },
   { id: "atlas-airless-51l", brand: "Atlas Powertech", name: "Máq. Pintura Airless 5.1L 3000W", desc: "Máquina de pintura airless elétrica, tanque 5,1L · 3000W / 220V para alta produtividade.", file: "atlas-airless-51l.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Portable_Gas_Powered__0610071258_texture.glb" },
   { id: "atlas-lixadeira-180", brand: "Atlas Powertech", name: "Lixadeira Elétrica Ø180 850W", desc: "Lixadeira elétrica Ø180 · 850W / 127V para preparo de paredes e tetos.", file: "atlas-lixadeira-180.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Red_cordless_random_o_0610071449_texture.glb" },
+  { id: "atlas-soprador-termico", brand: "Atlas Powertech", name: "Soprador Térmico 1500W", desc: "Soprador térmico 1500W / 127V para remoção de tinta, secagem e retração.", file: "atlas-soprador-termico.glb", model: "https://uwqebaqweehiljsqkifm.supabase.co/storage/v1/object/public/models/Meshy_AI_Atlas_PowerTech_Heat__0610071601_texture.glb" },
 ];
 
 // Site oficial do fabricante por marca (botão no modal 3D). Deixe "" para não exibir o botão.
