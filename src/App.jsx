@@ -391,6 +391,9 @@ function CarConfigurator() {
           src={url}
           camera-controls=""
           auto-rotate=""
+          ar=""
+          ar-modes="webxr scene-viewer quick-look"
+          ar-scale="auto"
           environment-image="neutral"
           exposure="1"
           shadow-intensity="1"
